@@ -1,0 +1,304 @@
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","No"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","Yes"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:",""
+"EXCEL:","out_22420.tab"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","Y"
+"QUERYROWS:","0"
+"JOINROWS:","0"
+"FILTERROWS:","0"
+"COL_ID_COUNTER:","0"
+"CHART_COUNTER:","3"
+"PIVOTMODE:","0"
+"SQLITESPECIALHDRS:","0"
+"LEGACYPIVOTHDRS:","1"
+"USEPYENGINE:","Y"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Pre/Post Query:Y{A48SmallLotKitting}</@#;>SFGIklotkitting1"
+"UTILITIESDESC:","Pre/Post Query"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Pre/Post Query:Y{smalllotkitting3}</@#;>SFGIklotkitting2"
+"UTILITIESDESC:","Pre/Post Query"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->HTML-Report:YYN32328"
+"UTILITIESDESC:","Create an HTML Report"
+"HTML-BEGIN",""
+"HTML-SCRIPT"
+"HTML-REPCSS:MYCSS2</@#;>MyCSS2</@#;>"
+"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Type<\\>Key<\\>COL1<\\>COL2<\\>COL3<\\>COL4<\\>COL5<\\>COL6<\\>COL7<\\>COL8"
+"TYPE<\\>CSS<\\><\\><\\><\\><\\><\\><\\><\\>"
+"CSS<\\>sqlpathfinder_style_1.css<\\><\\><\\><\\><\\><\\><\\><\\>"
+"FORMAT<\\>Column-Headers<\\>background-color:#dbd9c0<\\>color:#444<\\>font-family:arial<\\>font-size:12<\\>font-style:normal<\\>font-weight:bold<\\>text-align:left<\\>text-decoration:normal<\\>vertical-align:middle"
+"FORMAT<\\>Column-Data<\\>background-color:white<\\>color:#444<\\>font-family:arial<\\>font-size:12<\\>font-style:normal<\\>text-align:left<\\>vertical-align:middle<\\>"
+"FORMAT<\\>Column-Alt-Row<\\>background-color:#f7f5dc<\\>color:#333<\\>font-family:arial<\\>font-size:12<\\>font-style:normal<\\>text-align:left<\\>vertical-align:middle<\\>"
+"FORMAT<\\>At-Top-of-Report<\\>background-color:white<\\>color:#444<\\>font-family:arial<\\>font-size:15<\\>font-style:normal<\\>font-weight:bold<\\>text-align:center<\\>vertical-align:middle"
+"FORMAT<\\>At-Top-of-Col1<\\>background-color:white<\\>color:#444<\\>font-family:arial<\\>font-size:12<\\>font-style:normal<\\>font-weight:bold<\\>text-align:left<\\>vertical-align:middle"
+"FORMAT<\\>At-Top-of-Col2<\\>background-color:white<\\>color:#444<\\>font-family:arial<\\>font-size:12<\\>font-style:normal<\\>font-weight:bold<\\>text-align:left<\\>vertical-align:middle"
+"FORMAT<\\>At-Top-of-Col3<\\>background-color:white<\\>color:#444<\\>font-family:arial<\\>font-size:12<\\>font-style:normal<\\>font-weight:bold<\\>text-align:left<\\>vertical-align:middle"
+"FORMAT<\\>COLUMN-BORDER<\\>border-color:#cc9<\\>border-collapse:collapse<\\>border-style:solid<\\>border-width:1px<\\>border-spacing:4px<\\><\\><\\>"
+"HTML-REPORT-SPEC-END"
+"HTML-REPORT:MYREPORT1</@#;>klotkitting</@#;>"
+"
+
+
+
+
+
+
+
+
+
+
+
+Type<\\>Key<\\>COL1<\\>COL2<\\>COL3<\\>COL4<\\>COL5<\\>COL6<\\>COL7<\\>COL8<\\>COL9<\\>COL10<\\>COL11<\\>COL12<\\>COL13"
+"TYPE<\\>HTML<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"INPUT-FILE<\\>klotlist2.csv<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"OUTPUT-FILE<\\>SQLPathFinder.htm<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"CSS<\\>sqlpathfinder_style_1.css<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"COLSPAN<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"DRILLDOWN<\\>N<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"DYNAMICSORT<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"DYNAMICFILTER<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"ATTOPDRILLDOWN<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"NOPREPROCESS<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"SORT<\\>prodgroup3<\\>Asc<\\>Y<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"SORT<\\>at_mrb1<\\>Asc<\\>Y<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"SORT<\\>at_mrb2<\\>Asc<\\>Y<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"SORT<\\>at_mrb3<\\>Asc<\\>Y<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"SORT<\\>owner<\\>Asc<\\>Y<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"SORT<\\>operation<\\>Asc<\\>Y<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"SORT<\\>tpsync<\\>Asc<\\>Y<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"SORT<\\>tp<\\>Asc<\\>Y<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"SORT<\\>product<\\>Asc<\\>Y<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"SORT<\\>lot<\\>Asc<\\>Y<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"SORT<\\>fabid<\\>Asc<\\>Y<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"SORT<\\>shelfid<\\>Asc<\\>Y<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"SORT<\\>quantity<\\>Asc<\\>Y<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"AT-TOP-OF-REPORT<\\><\\><TS><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"COLUMN-DATA<\\><\\>prodgroup3<\\>at_mrb1<\\>at_mrb2<\\>at_mrb3<\\>tpsync<\\>tp<\\>owner<\\>operation<\\>product<\\>lot<\\>fabid<\\>shelfid<\\>quantity"
+"COLUMN-HEADERS<\\><\\>Prodgroup3<\\>At Mrb1<\\>At Mrb2<\\>At Mrb3<\\>Tpsync<\\>TPBBID-MRV<\\>Owner<\\>Operation<\\>Product<\\>Lot<\\>Fabid<\\>Shelfid<\\>Quantity"
+"COLUMN-ALIGNMENT<\\><\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\><\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left"
+"COLUMN-FORMAT<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"HTML-REPORT-SPEC-END"
+"HTML-CREATE WINDOW:WIN3</@#;>0@@@https://content.sp2019.intel.com/sites/CD/CDATwebshare/IonReport/SFGI_kitting_report/klotkitting.htm@@@sqlpathfinder_style_1.css@@@E->Y@@@RR->NO@@@B->N@@@EM-A->@@@EM-S->@@@SEC->Y@@@MYREPORT1@@@</@#;>Win3</@#;>Window Title or Email Subject"
+"HTML-END"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Email:N@EXEDIR@\SQLPathFinder_Email.va <~><~> <~>klotmail.txt<~> <~>SFGI k lot kitting<~> <~>klotkitting.htm<~> <~><~> <~>self<~> <~><~> <~>N<~> <~><<<spf-email-type>>><~>"
+"UTILITIESDESC:","Email Results"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"JOINGRID:"
+"FILTERGRID:"
+/START_EMBED_ALL
+/EMBED=VG2;A48SmallLotKitting
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","No"
+"QUOTECSV:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","Yes"
+"INLINE_VIEW:",""
+"EXCEL:","klotlist1.csv"
+"ROW:","No"
+"EMBED:","Y"
+"QUERYROWS:","23"
+"JOINROWS:","0"
+"FILTERROWS:","9"
+"COL_ID_COUNTER:","23"
+"CHART_COUNTER:","0"
+"SQLITEEXT:","0"
+"JOINHADOOP:","0"
+"INTMPSQLITE:","0"
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","2:0:a0"
+"TABLEGRID:","1"
+"","F_Lot_Status_22",""
+"MARSNODE:","CD.[A48_PROD_21.].MARS"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","Default"
+"MARSSCHEMA:","@[]@"
+"DATABASETYPE:","Oracle"
+"SINGLENODE:","CD.[A48_PROD_21.].MARS"
+"SINGLESCHEMA:","@[]@"
+"PROMPT-TEXT:","Fetching MARS Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"FIRST_ROWS:","No"
+"ORDERED:","No"
+"OTHER-HINT:","No"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"a0.lot","lot","Y","None","None","Row","c","Identifies a batch of wafers or units being processed in the factory. The basic format of the Lot number is:  FYWWNNNN where F=fab code, Y=year, WW=workweek, NNNN= sequence, with the 9th or 10th characters as alphanumeric. In Fab, Etest and Sort, a quantity that has a wafer as an unit of measure and the physical form that passes through the factory. A lot starting the Fab process contains up to 25 wafers and can be split into child lots of varying sizes, and wafer losses can also occur. New lots are also created to split lots due to varying characteristics, such as speed or rework, for a portion of the lot. In some 200mm fabs production lots, the lot number uses a silicon vendor ID in the 8th character","f_lot","a0->f0.lot","col1"
+"a0.operation","operation","Y","None","None","Row","c","The current operation (or processing step) the lot is at","f_lot","a0->f0.operation","col2"
+"a0.owner","owner","Y","None","None","Row","c","Identifies the owner of the lot. Valid values include: ENG, PROD, TW. This maps to MES300 LotTypes","f_lot","a0->f0.owner","col21"
+"a0.prodgroup3","prodgroup3","Y","None","None","Row","c","Product Classification column. May be a useful filter in Assembly/Test","f_product","a0->p.prodgroup3","col13"
+"a0.product","product","Y","None","None","Row","c","The current product associated with the lot","f_lot","a0->f0.product","col5"
+"f(a0)->SUBSTR( {product} ,0,15)","Prodname1","Y","None","None","Row","C","***","@if@1","a0->SUBSTR( {col5} ,0,15)","col22"
+"a0.onhold","onhold","Y","None","None","Row","c","Flag indicating if the lot is currently on hold. Y means the lot is on hold and N means the lot is not on hold.","f_lot","a0->f0.onhold","col9"
+"a0.at_shippable_general","at_shippable_general","Y","None","None","Row","c","For Assembly/Test. Indicates if an xRB lot is shippable or not. Y for Yes and N for No","f_lot","a0->CASE WHEN SUBSTR(f0.create_data1, 1, 1) IN ('7','6','5','4','3','2','1') THEN 'N' ELSE 'Y' END","col14"
+"a0.at_mrb1","at_mrb1","Y","None","None","Row","c","Assembly/Test 1st MRB in Workstream decoded","f_lot","a0->CAST(CASE WHEN SUBSTR(f0.create_data1,2,4) is not null THEN (CAST(INSTR('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-=''!@#$%^&*()_+[]|:<>?' || chr(123) || chr(125) || '\;`,/.~', SUBSTR(f0.create_data1, 5, 1)) AS INT) - 1) * POWER(67, 0) + (CAST(INSTR('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-=''!@#$%^&*()_+[]|:<>?' || chr(123) || chr(125) || '\;`,/.~', SUBSTR(f0.create_data1, 4, 1)) AS INT) - 1) * POWER(67, 1) + (CAST(INSTR('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-=''!@#$%^&*()_+[]|:<>?' || chr(123) || chr(125) || '\;`,/.~', SUBSTR(f0.create_data1, 3, 1)) AS INT) - 1) * POWER(67, 2) +  (CAST(INSTR('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-=''!@#$%^&*()_+[]|:<>?' || chr(123) || chr(125) || '\;`,/.~', SUBSTR(f0.create_data1, 2, 1)) AS INT) - 1) * POWER(67, 3) END  as varchar(100) )","col15"
+"a0.at_mrb2","at_mrb2","Y","None","None","Row","c","Assembly/Test 2nd MRB in Workstream decoded","f_lot","a0->CAST(CASE WHEN SUBSTR(f0.create_data1,6,4) is not null THEN (CAST(INSTR('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-=''!@#$%^&*()_+[]|:<>?' || chr(123) || chr(125) || '\;`,/.~', SUBSTR(f0.create_data1, 9, 1)) AS INT) - 1) * POWER(67, 0)  + (CAST(INSTR('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-=''!@#$%^&*()_+[]|:<>?' || chr(123) || chr(125) || '\;`,/.~', SUBSTR(f0.create_data1, 8, 1)) AS INT) - 1) * POWER(67, 1) + (CAST(INSTR('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-=''!@#$%^&*()_+[]|:<>?' || chr(123) || chr(125) || '\;`,/.~', SUBSTR(f0.create_data1, 7, 1)) AS INT) - 1) * POWER(67, 2) + (CAST(INSTR('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-=''!@#$%^&*()_+[]|:<>?' || chr(123) || chr(125) || '\;`,/.~', SUBSTR(f0.create_data1, 6, 1)) AS INT) - 1) * POWER(67, 3) END  as varchar(100) )","col16"
+"a0.at_mrb3","at_mrb3","Y","None","None","Row","c","Assembly/Test 3rd MRB in Workstream decoded","f_lot","a0->CAST(CASE WHEN SUBSTR(f0.create_data1,10,4) is not null THEN (CAST(INSTR('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-=''!@#$%^&*()_+[]|:<>?' || chr(123) || chr(125) || '\;`,/.~', SUBSTR(f0.create_data1, 13, 1)) AS INT) - 1) * POWER(67, 0) + (CAST(INSTR('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-=''!@#$%^&*()_+[]|:<>?' || chr(123) || chr(125) || '\;`,/.~', SUBSTR(f0.create_data1, 12, 1)) AS INT) - 1) * POWER(67, 1) + (CAST(INSTR('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-=''!@#$%^&*()_+[]|:<>?' || chr(123) || chr(125) || '\;`,/.~', SUBSTR(f0.create_data1, 11, 1)) AS INT) - 1) * POWER(67, 2)  + (CAST(INSTR('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-=''!@#$%^&*()_+[]|:<>?' || chr(123) || chr(125) || '\;`,/.~', SUBSTR(f0.create_data1, 10, 1)) AS INT) - 1) * POWER(67, 3) END as varchar(100) )","col17"
+"f(a0)->TPSync","TPSync","Y","None","None","Row","x","***Lot attribute (1215)","f_lot","a0->(SELECT la.attribute_value FROM @MARSSCHEMA@F_LotAttribute la where la.lot= f0.lot AND la.attribute_number = 1215 AND la.src_erase_date IS NULL AND rownum <= 1)","col18"
+"f(a0)->TP","TP","Y","None","None","Row","x","***Lot attribute (1473)","f_lot","a0->(SELECT la.attribute_value FROM @MARSSCHEMA@F_LotAttribute la where la.lot= f0.lot AND la.attribute_number = 1473 AND la.src_erase_date IS NULL AND rownum <= 1)","col23"
+"f(a0)->FABID","FABID","Y","None","None","Row","x","***Lot attribute (107)","f_lot","a0->(SELECT la.attribute_value FROM @MARSSCHEMA@F_LotAttribute la where la.lot= f0.lot AND la.attribute_number = 107 AND la.src_erase_date IS NULL AND rownum <= 1)","col19"
+"f(a0)->(SELECT la.attribute_value FROM @MARSSCHEMA@F_LotAttribute la where la.lot= f0.lot AND la.attribute_number = 6667 AND la.src_erase_date IS NULL AND rownum <= 1)","ShelfID","Y","None","None","Row","X","***Lot attribute (490)","f_lot","a0->(SELECT la.attribute_value FROM @MARSSCHEMA@F_LotAttribute la where la.lot= f0.lot AND la.attribute_number = 6667 AND la.src_erase_date IS NULL AND rownum <= 1)","col20"
+"a0.route","route","N","None","None","Row","c","The current route the lot is on. In FAB300, this refers to the 2nd highest level in the process structure or level 3.","f_lot","a0->f0.route","col3"
+"a0.quantity","quantity","Y","None","None","Row","n","The current number of units or wafers or panels in the lot","f_lot","a0->f0.qty1","col4"
+"a0.date_entered_operation","date_entered_operation","N","None","None","Row","d","The date and time the lot arrived at the current operation","f_lot","a0->f0.date_entered_operation","col6"
+"a0.movein_date","movein_date","N","None","None","Row","d","The date and time the lot was moved into the current operation. Usually denotes when processing started on the lot","f_lot","a0->f0.movein_date","col7"
+"a0.lot_priority","lot_priority","N","None","None","Row","n","Identifies the lot priority which controls dispatch sequence within a dispatch group. This is calculated based on schedule due date, current date and cycle time remaining. Valid Values are: 0 - 9 for Routine, Significant, Important, Pressing, Serious, VerySignificant, VeryImportant, VeryPressing, VerySerious, Critical. Validaion table is FAB300.LotPriority.","f_lot","a0->f0.lot_priority","col8"
+"a0.onrework","onrework","N","None","None","Row","c","Flag indicating whether the lot is currently on rework. Y means the lot is on rework and N means the lot is not currently on rework.","f_lot","a0->f0.onrework","col10"
+"a0.terminated","terminated","N","None","None","Row","c","Indicates whether the lot is terminated in this facility either because the lot has completed processing or because the lot has been scrapped due to losses. Y means the lot has been terminated.","f_lot","a0->f0.terminated","col11"
+"a0.movedin","movedin","N","None","None","Row","c","Indicates if a move in transaction has been performed at the current operation. Y means a moved in transaction has been performed.","f_lot","a0->f0.movedin","col12"
+"JOINGRID:"
+"FILTERGRID:"
+"AND","","a0.terminated","=","'N'","","","c","f_lot","a0->f0.terminated",""
+"AND","","a0.quantity",">","0","","","n","f_lot","a0->f0.qty1",""
+"AND","","a0.src_erase_date","Is Null","","","","d","f_lot","a0->f0.src_erase_date",""
+"AND","","a0.owner","=","'PROD'","","","c","f_lot","a0->f0.owner",""
+"AND","","a0.onhold","=","'N'","","","c","f_lot","a0->f0.onhold",""
+"-- AND","","a0.at_shippable_general","=","'Y'","","","c","f_lot","a0->CASE WHEN SUBSTR(f0.create_data1, 1, 1) IN ('7','6','5','4','3','2','1') THEN 'N' ELSE 'Y' END",""
+"AND","","a0.operation","In","'7200'</comma\>'9021'</comma\>'9022'","","","c","f_lot","a0->f0.operation",""
+"AND","","a0.lot","=","","","Y","c","f_lot","a0->f0.lot",""
+"AND","","f(a0)->CASE WHEN  {operation}='9021' and   {product}  not like '%BKK'   THEN 'N' !!!!!WHEN  {operation}='9022' and   {product} not like '%BKK'   THEN 'N' !!!!!ELSE 'Y'END","=","'Y'","","","cx","f_lot","a0->CASE WHEN  {col2}='9021' and   {col5}  not like '%BKK'   THEN 'N' !!!!!WHEN  {col2}='9022' and   {col5} not like '%BKK'   THEN 'N' !!!!!ELSE 'Y'END",""
+
+
+
+
+
+
+/END_EMBED
+/EMBED=VG2;smalllotkitting3
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","No"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","Yes"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:",""
+"EXCEL:","klotlist2.csv"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","Y"
+"QUERYROWS:","13"
+"JOINROWS:","0"
+"FILTERROWS:","0"
+"COL_ID_COUNTER:","32"
+"CHART_COUNTER:","0"
+"PIVOTMODE:","0"
+"SQLITESPECIALHDRS:","0"
+"LEGACYPIVOTHDRS:","1"
+"USEPYENGINE:","N"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","1:5:SQL"
+"TABLEGRID:","1"
+"","klotlist1.csv a0",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","SQLite"
+"SINGLENODE:","TEXT (SQLite)"
+"SINGLESCHEMA:","N/A"
+"PROMPT-TEXT:","Fetching Text (SQLite) Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"PREPROCESS_CSV:","No"
+"NOHDRS:","No"
+"CARTESIAN:","No"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"a0.prodgroup3","prodgroup3","Y","None","None","Row","c","","csv","SQL->a0.[prodgroup3]","col20"
+"a0.at_mrb1","at_mrb1","Y","None","None","Row","c","","csv","SQL->a0.[at_mrb1]","col21"
+"a0.at_mrb2","at_mrb2","Y","None","None","Row","c","","csv","SQL->a0.[at_mrb2]","col22"
+"a0.at_mrb3","at_mrb3","Y","None","None","Row","c","","csv","SQL->a0.[at_mrb3]","col23"
+"a0.tpsync","tpsync","Y","None","None","Row","c","","csv","SQL->a0.[tpsync]","col24"
+"a0.tp","tp","Y","None","None","Row","c","","csv","SQL->a0.[tp]","col32"
+"a0.owner","owner","Y","None","None","Row","c","","csv","SQL->a0.[owner]","col25"
+"a0.operation","operation","Y","None","None","Row","c","","csv","SQL->a0.[operation]","col31"
+"a0.product","product","Y","None","None","Row","c","","csv","SQL->a0.[product]","col27"
+"a0.lot","lot","Y","None","None","Row","c","","csv","SQL->a0.[lot]","col26"
+"a0.fabid","fabid","Y","None","None","Row","c","","csv","SQL->a0.[fabid]","col28"
+"a0.shelfid","shelfid","Y","None","None","Row","c","","csv","SQL->a0.[shelfid]","col29"
+"a0.quantity","quantity","Y","None","None","Row","c","","csv","SQL->a0.[quantity]","col30"
+"JOINGRID:"
+"FILTERGRID:"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/END_EMBED
+/END_EMBED_ALL
