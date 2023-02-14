@@ -1,0 +1,3162 @@
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","No"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","Yes"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:","SFGI\SFGISmall4.exe"
+"EXCEL:","Premerge_count.csv"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","N"
+"QUERYROWS:","5"
+"JOINROWS:","0"
+"FILTERROWS:","0"
+"COL_ID_COUNTER:","32"
+"CHART_COUNTER:","15"
+"PIVOTMODE:","0"
+"SQLITESPECIALHDRS:","1"
+"LEGACYPIVOTHDRS:","0"
+"USEPYENGINE:","Y"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Copy:Y@EXEDIR@\SPFCopy.bat <~>\\cdATSHFS.intel.com\CDATAnalysis$\MAOATM\zhengwee\Calendar\calendar_raw.tab<~> <~>.\<~> <~>Y<~>"
+"UTILITIESDESC:","Copy Files/Folders"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Copy:Y@EXEDIR@\SPFCopy.bat <~>\\SHUser-ProdAT.intel.com\SHProdATUser$\wangqi4\SFGI\bundlesize.tab<~> <~>.\<~> <~>N<~>"
+"UTILITIESDESC:","Copy Files/Folders"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Pre/Post Query:Y{Calendar}</@#;>Calendar"
+"UTILITIESDESC:","Pre/Post Query"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Pre/Post Query:Y{Canlendar1}</@#;>Canlendar1"
+"UTILITIESDESC:","Pre/Post Query"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->SQL:Y<OPTIONS><{><}>/NODE=DEFAULT (MARS)<{><}>/OLEDB=SQLPlus<{><}>/ENGINE=VA<{><}>/WORKDIR=.\<{><}>/UN=//<{><}>/PW=<{><}>/T=NO<{><}>/CSV=Premergelist.csv<{><}>/HEADERS=LOT, OPERATION, TRANSACTION,OWNER_NEW, TXN_DATE,FROM-TO_LOT,OLDQTY1,NEWQTY1,PRODUCT_NEW,PG3, WEEKDATE, TEAM<{><}></OPTIONS><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}>/*BEGIN SQL*/<{><}><{><}>select lth.lot,lth.operation,lth.transaction,LTH.OWNER_NEW,lth.txn_date,lth.from_to_lot,lth.oldqty1,lth.newqty1,lth.product_new,(select p.prodgroup3 from a48_prod_21.f_product p where p.facility=lth.facility_new and p.product=lth.product_new) pg3,<{><}>ca.ww||'_'||ca.weekday weekdate,ca.team<{><}>from <{><}>a48_prod_21.f_lottxnhist lth <{><}>left join (select c.dow ,c.shift,c.start_date,c.end_date<{><}>,c.ww as c_ww,c.calcudf1 team<{><}>,a48_prod_21.marsfn.FN$IntelWW(c.start_date) ww<{><}>,(case<{><}>   when c.dow='1' and c.shiftno=2 then '6N' <{><}>  when c.dow='1' and c.shiftno=1 then '0D'<{><}>    when c.dow='2' and c.shiftno=2 then '0N'<{><}>      when c.dow='2' and c.shiftno=1 then '1D'<{><}>        when c.dow='3' and c.shiftno=2 then '1N'<{><}>          when c.dow='3' and c.shiftno=1 then '2D'<{><}>            when c.dow='4' and c.shiftno=2 then '2N'<{><}>              when c.dow='4' and c.shiftno=1 then '3D'<{><}>                when c.dow='5' and c.shiftno=2 then '3N'<{><}>                  when c.dow='5' and c.shiftno=1 then '4D'<{><}>                    when c.dow='6' and c.shiftno=2 then '4N'<{><}>                      when c.dow='6' and c.shiftno=1 then '5D' <{><}>                        when c.dow='7' and c.shiftno=2 then '5N'                 <{><}>                            else '6D' end) Weekday <{><}>from a48_prod_21.f_calendar c) ca on ca.start_date > sysdate - 200 and lth.txn_date between ca.start_date and ca.end_date<{><}>where lth.operation in ('7290','7200','2700')<{><}>--and lth.owner in ('PROD','ENG')<{><}>and lth.txn_date>=(TRUNC(SYSDATE) - 65 + (12+7)/24)  <{><}>and lth.transaction='MRLT'<{><}>and lth.newqty1>0<{><}>and lth.owner_new in ('PROD','ENG')<{><}>/*END SQL*/"
+"UTILITIESDESC:","Run an SQL Script"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->SQL:Y<OPTIONS><{><}>/NODE=DEFAULT (MARS)<{><}>/OLEDB=SQLPlus<{><}>/ENGINE=VA<{><}>/WORKDIR=.\<{><}>/UN=//<{><}>/PW=<{><}>/T=NO<{><}>/CSV=PremergeDistinctlist.csv<{><}>/HEADERS=DUPLICATE,  WEEKDATE<{><}></OPTIONS><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}>/*BEGIN SQL*/<{><}><{><}>select count (distinct lp.lot) Duplicate,lp.weekdate<{><}>from<{><}>(select lth.lot,lth.operation,lth.transaction,LTH.OWNER_NEW,lth.txn_date,lth.from_to_lot,lth.oldqty1,lth.newqty1,lth.product_new,(select p.prodgroup3 from a48_prod_21.f_product p where p.facility=lth.facility_new and p.product=lth.product_new) pg3,<{><}>ca.ww||'_'||ca.weekday weekdate,ca.team<{><}>from <{><}>a48_prod_21.f_lottxnhist lth <{><}>left join (select c.dow ,c.shift,c.start_date,c.end_date<{><}>,c.ww as c_ww,c.calcudf1 team<{><}>,a48_prod_21.marsfn.FN$IntelWW(c.start_date) ww<{><}>,(case<{><}>   when c.dow='1' and c.shiftno=2 then '6N' <{><}>  when c.dow='1' and c.shiftno=1 then '0D'<{><}>    when c.dow='2' and c.shiftno=2 then '0N'<{><}>      when c.dow='2' and c.shiftno=1 then '1D'<{><}>        when c.dow='3' and c.shiftno=2 then '1N'<{><}>          when c.dow='3' and c.shiftno=1 then '2D'<{><}>            when c.dow='4' and c.shiftno=2 then '2N'<{><}>              when c.dow='4' and c.shiftno=1 then '3D'<{><}>                when c.dow='5' and c.shiftno=2 then '3N'<{><}>                  when c.dow='5' and c.shiftno=1 then '4D'<{><}>                    when c.dow='6' and c.shiftno=2 then '4N'<{><}>                      when c.dow='6' and c.shiftno=1 then '5D' <{><}>                        when c.dow='7' and c.shiftno=2 then '5N'                 <{><}>                            else '6D' end) Weekday <{><}>from a48_prod_21.f_calendar c) ca on ca.start_date > sysdate - 200 and lth.txn_date between ca.start_date and ca.end_date<{><}>where lth.operation in ('7290','7200','2700')<{><}>--and lth.owner in ('PROD','ENG')<{><}>and lth.txn_date>=(TRUNC(SYSDATE) - 65 + (12+7)/24)  <{><}>and lth.transaction='MRLT'<{><}>and lth.newqty1>0<{><}>and lth.owner_new in ('PROD','ENG') )lp<{><}>group by lp.weekdate<{><}><{><}>/*END SQL*/"
+"UTILITIESDESC:","Run an SQL Script"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->SQL:Y<OPTIONS><{><}>/NODE=DEFAULT (MARS)<{><}>/OLEDB=SQLPlus<{><}>/ENGINE=VA<{><}>/WORKDIR=.\<{><}>/UN=//<{><}>/PW=<{><}>/T=NO<{><}>/CSV=FPOLOT.csv<{><}>/HEADERS=WEEKDATE,TEAM,OPERATION,PROD,TRANSACTION,NEWQTY1,OLDQTY1,MOTHERLOT,CHILDLOT,CPLTTIME,CHILDLOTQTY,SMALLLOTFLAG,QTY,MSMALLLOTFLAG<{><}></OPTIONS><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}>/*BEGIN SQL*/<{><}><{><}>select ca.ww||'_'||ca.weekday weekdate, ca.team,ml.Operation,ml.Prod,ml.transaction, ml.newqty1,ml.oldqty1, ml.Motherlot,ml.ChildLot,ml.txn_date as CPLTTime,ml.ChildLotQty,ml.SmallLotFlag, ml.QTY,mSmallLotFlag from (select lth.operation,<{><}>       p.prodgroup3 as Prod,<{><}>       lth.lot as MotherLot,<{><}>       lth.from_to_lot as ChildLot,<{><}>       lth.txn_date,lth.oldqty1,lth.newqty1,lth.transaction,<{><}>       case<{><}>         when lth.transaction = 'CPLT' then<{><}>          lth.newqty1 - lth.oldqty1<{><}>         else<{><}>          lth.newqty1<{><}>       end as ChildLotQty,<{><}>       case when lth.transaction = 'CPLT' and lth.newqty1 - lth.oldqty1 <=300 then 'Y'<{><}>          when lth.transaction = 'CPLT' and  lth.newqty1 - lth.oldqty1 >300 then 'N'<{><}>          when lth.transaction = 'SPLT' and  lth.newqty1<=300 then 'Y'<{><}>          else 'N' end as SmallLotFlag,<{><}>     case when lth.lot like '8%' then min (lth.oldqty1) over (partition by lth.lot) <{><}>       else -1 end as QTY,<{><}>     case when (case when lth.lot like '8%' then min (lth.oldqty1) over (partition by lth.lot) <{><}>       else -1 end)- lth.oldqty1=0 then 'Y'<{><}>         else 'N' end as MsmallLotFlag   <{><}>       <{><}>   <{><}>  from A48_PROD_21.F_LOTTXNHIST lth, A48_PROD_21.F_Product p<{><}>  <{><}>  <{><}>where lth.product_new = p.product<{><}>   and lth.facility_new = p.facility<{><}>   and lth.facility_new = 'A48'<{><}>   and lth.operation in ('7290','7200','2700')<{><}>   and lth.owner_new in ('PROD','ENG')<{><}>   and lth.transaction IN ('CPLT', 'SPLT')<{><}>   and lth.txn_date>=(TRUNC(SYSDATE) - 65 + (12+7)/24)   <{><}>   and lth.from_to = 'F'<{><}>   ) ML  <{><}>   left join (select c.dow ,c.shift,c.start_date,c.end_date<{><}>,c.ww as c_ww,c.calcudf1 team<{><}>,a48_prod_21.marsfn.FN$IntelWW(c.start_date) ww<{><}>,(case<{><}>   when c.dow='1' and c.shiftno=2 then '6N' <{><}>  when c.dow='1' and c.shiftno=1 then '0D'<{><}>    when c.dow='2' and c.shiftno=2 then '0N'<{><}>      when c.dow='2' and c.shiftno=1 then '1D'<{><}>        when c.dow='3' and c.shiftno=2 then '1N'<{><}>          when c.dow='3' and c.shiftno=1 then '2D'<{><}>            when c.dow='4' and c.shiftno=2 then '2N'<{><}>              when c.dow='4' and c.shiftno=1 then '3D'<{><}>                when c.dow='5' and c.shiftno=2 then '3N'<{><}>                  when c.dow='5' and c.shiftno=1 then '4D'<{><}>                    when c.dow='6' and c.shiftno=2 then '4N'<{><}>                      when c.dow='6' and c.shiftno=1 then '5D' <{><}>                        when c.dow='7' and c.shiftno=2 then '5N'                 <{><}>                            else '6D' end) Weekday <{><}>from a48_prod_21.f_calendar c) ca on ml.txn_date between ca.start_date and ca.end_date<{><}><{><}><{><}>/*END SQL*/"
+"UTILITIESDESC:","Run an SQL Script"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->SQL:Y<OPTIONS><{><}>/NODE=DEFAULT (MARS)<{><}>/OLEDB=SQLPlus<{><}>/ENGINE=VA<{><}>/WORKDIR=.\<{><}>/UN=//<{><}>/PW=<{><}>/T=NO<{><}>/CSV=Savebin.csv<{><}>/HEADERS=WEEKDATE,TEAM,OPERATION,PROD,TRANSACTION,NEWQTY1,OLDQTY1,MOTHERLOT,CHILDLOT,CPLTTIME,CHILDLOTQTY<{><}></OPTIONS><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}><{><}>/*BEGIN SQL*/<{><}><{><}>select ca.ww||'_'||ca.weekday weekdate, ca.team,ml.Operation,ml.Prod,ml.transaction, ml.newqty1,ml.oldqty1, ml.Motherlot,ml.ChildLot,ml.txn_date as CPLTTime,ml.ChildLotQty from (select lth.operation,<{><}>       p.prodgroup3 as Prod,<{><}>       lth.lot as MotherLot,<{><}>       lth.from_to_lot as ChildLot,<{><}>       lth.txn_date,lth.oldqty1,lth.newqty1,lth.transaction,<{><}>       case<{><}>         when lth.transaction = 'CPLT' then<{><}>          lth.newqty1 - lth.oldqty1<{><}>         else<{><}>          lth.newqty1<{><}>       end as ChildLotQty<{><}>      <{><}>       <{><}>   <{><}>  from A48_PROD_21.F_LOTTXNHIST lth, A48_PROD_21.F_Product p<{><}>  <{><}>  <{><}>where lth.product_new = p.product<{><}>   and lth.facility_new = p.facility<{><}>   and lth.facility_new = 'A48'<{><}>   and lth.operation in ('3700','3200')<{><}>   and lth.owner_new in ('PROD','ENG')<{><}>   and lth.transaction IN ('CPLT', 'SPLT')<{><}>   and lth.txn_date>=(TRUNC(SYSDATE) - 65 + (12+7)/24)   <{><}>   and lth.from_to = 'F'<{><}>   ) ML  <{><}>   left join (select c.dow ,c.shift,c.start_date,c.end_date<{><}>,c.ww as c_ww,c.calcudf1 team<{><}>,a48_prod_21.marsfn.FN$IntelWW(c.start_date) ww<{><}>,(case<{><}>   when c.dow='1' and c.shiftno=2 then '6N' <{><}>  when c.dow='1' and c.shiftno=1 then '0D'<{><}>    when c.dow='2' and c.shiftno=2 then '0N'<{><}>      when c.dow='2' and c.shiftno=1 then '1D'<{><}>        when c.dow='3' and c.shiftno=2 then '1N'<{><}>          when c.dow='3' and c.shiftno=1 then '2D'<{><}>            when c.dow='4' and c.shiftno=2 then '2N'<{><}>              when c.dow='4' and c.shiftno=1 then '3D'<{><}>                when c.dow='5' and c.shiftno=2 then '3N'<{><}>                  when c.dow='5' and c.shiftno=1 then '4D'<{><}>                    when c.dow='6' and c.shiftno=2 then '4N'<{><}>                      when c.dow='6' and c.shiftno=1 then '5D' <{><}>                        when c.dow='7' and c.shiftno=2 then '5N'                 <{><}>                            else '6D' end) Weekday <{><}>from a48_prod_21.f_calendar c) ca on ml.txn_date between ca.start_date and ca.end_date<{><}><{><}><{><}>  <{><}>  <{><}><{><}><{><}><{><}>/*END SQL*/"
+"UTILITIESDESC:","Run an SQL Script"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Pre/Post Query:Y{Premergelist1}</@#;>Premergelist1"
+"UTILITIESDESC:","Pre/Post Query"
+"<---- New Query ---->","1:5:SQL"
+"TABLEGRID:","1"
+"","Premergelist1.tab a0",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","SQLite"
+"SINGLENODE:","TEXT (SQLite)"
+"SINGLESCHEMA:","N/A"
+"PROMPT-TEXT:","Fetching Text (SQLite) Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"PREPROCESS_CSV:","No"
+"NOHDRS:","No"
+"CARTESIAN:","No"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Pre/Post Query:Y{FPO1}</@#;>FPO1_SmallLot"
+"UTILITIESDESC:","Pre/Post Query"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Pre/Post Query:Y{FPO2}</@#;>FPO2 small lot"
+"UTILITIESDESC:","Pre/Post Query"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Pre/Post Query:Y{Savebin}</@#;>Savebin"
+"UTILITIESDESC:","Pre/Post Query"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Pre/Post Query:Y{Premerge_Report}</@#;>Premerge_Report_Small Lot"
+"UTILITIESDESC:","Pre/Post Query"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Pre/Post Query:Y{MET PACK}</@#;>MET PACK"
+"UTILITIESDESC:","Pre/Post Query"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Pre/Post Query:Y{upack}</@#;>Pack His"
+"UTILITIESDESC:","Pre/Post Query"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Pre/Post Query:Y{1}</@#;>MET_PACK1"
+"UTILITIESDESC:","Pre/Post Query"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Pre/Post Query:Y{Unpack_0}</@#;>Unpack_0"
+"UTILITIESDESC:","Pre/Post Query"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Pre/Post Query:Y{UNPACK His}</@#;>UNPACK His"
+"UTILITIESDESC:","Pre/Post Query"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Pre/Post Query:Y{unpack}</@#;>unpack"
+"UTILITIESDESC:","Pre/Post Query"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Pre/Post Query:Y{SFGI_Small_Lot_Report}</@#;>SFGI_Small_Lot_Report"
+"UTILITIESDESC:","Pre/Post Query"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Pre/Post Query:Y{1_1}</@#;>1_1"
+"UTILITIESDESC:","Pre/Post Query"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Pre/Post Query:Y{PrePostQuery_28}</@#;>Email Trigger"
+"UTILITIESDESC:","Pre/Post Query"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->HTML-Report:YYN21587"
+"UTILITIESDESC:","Create an HTML Report"
+"HTML-BEGIN",""
+"HTML-SCRIPT"
+"HTML-REPCSS:MYCSS7</@#;>MyCSS7</@#;>"
+"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Type<\\>Key<\\>COL1<\\>COL2<\\>COL3<\\>COL4<\\>COL5<\\>COL6<\\>COL7<\\>COL8<\\>COL9"
+"TYPE<\\>CSS<\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"CSS<\\>sqlpathfinder_style_2.css<\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"FORMAT<\\>Column-Headers<\\>background-color:#dbd9c0<\\>color:#444<\\>font-family:arial<\\>font-size:12<\\>font-style:normal<\\>font-weight:bold<\\>text-align:left<\\>text-decoration:normal<\\>vertical-align:middle"
+"FORMAT<\\>Column-Data<\\>background-color:white<\\>color:#444<\\>font-family:arial<\\>font-size:12<\\>font-style:normal<\\>text-align:left<\\>vertical-align:middle<\\><\\>"
+"FORMAT<\\>Column-Alt-Row<\\>background-color:#f7f5dc<\\>color:#333<\\>font-family:arial<\\>font-size:12<\\>font-style:normal<\\>text-align:left<\\>vertical-align:middle<\\><\\>"
+"FORMAT<\\>At-Top-of-Report<\\>background-color:white<\\>color:#444<\\>font-family:arial<\\>font-size:15<\\>font-style:normal<\\>font-weight:bold<\\>text-align:center<\\>vertical-align:middle<\\>"
+"FORMAT<\\>At-Top-of-Col1<\\>background-color:white<\\>color:#444<\\>font-family:arial<\\>font-size:12<\\>font-style:normal<\\>font-weight:bold<\\>text-align:left<\\>vertical-align:middle<\\>"
+"FORMAT<\\>At-Top-of-Col2<\\>background-color:white<\\>color:#444<\\>font-family:arial<\\>font-size:12<\\>font-style:normal<\\>font-weight:bold<\\>text-align:left<\\>vertical-align:middle<\\>"
+"FORMAT<\\>At-Top-of-Col3<\\>background-color:white<\\>color:#444<\\>font-family:arial<\\>font-size:12<\\>font-style:normal<\\>font-weight:bold<\\>text-align:left<\\>vertical-align:middle<\\>"
+"FORMAT<\\>JQX-All-IChart-Text<\\>background-color:white<\\>color:black<\\>font-family:verdana<\\>font-size:11<\\>font-style:normal<\\>font-weight:normal<\\>text-align:left<\\>vertical-align:middle<\\>"
+"FORMAT<\\>COLUMN-BORDER<\\>border-color:#cc9<\\>border-collapse:collapse<\\>border-style:solid<\\>border-width:1px<\\>border-spacing:4px<\\><\\><\\><\\>"
+"HTML-REPORT-SPEC-END"
+"HTML-REPORT:MYREPORT8</@#;>Smalllot</@#;>"
+"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Type<\\>Key<\\>COL1<\\>COL2<\\>COL3<\\>COL4<\\>COL5<\\>COL6<\\>COL7<\\>COL8<\\>COL9<\\>COL10<\\>COL11<\\>COL12<\\>COL13<\\>COL14<\\>COL15<\\>COL16"
+"TYPE<\\>HTML<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"INPUT-FILE<\\>SFGI_Small_Lot_Report.csv<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"OUTPUT-FILE<\\>SQLPathFinder.htm<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"CSS<\\>sqlpathfinder_style_1.css<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"COLSPAN<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"DRILLDOWN<\\>N<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"DYNAMICSORT<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"DYNAMICFILTER<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"ATTOPDRILLDOWN<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"NOPREPROCESS<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"AT-TOP-OF-REPORT<\\><\\>SFGI Small Lot Report<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"COLUMN-DATA<\\><\\>weekdate<\\>team<\\>premerge_lot_count<\\>premerge_bundle_count<\\>premerge_goal<\\>premerge_lot_delta<\\>small_kitting_lot_count<\\>small_kitting_bundle_count<\\>save_bin_lot_count<\\>save_bin_bundle_count<\\>total_small_lot_count<\\>total_small_bundle_count<\\>goal<\\>lot_delta<\\>met_pack<\\>all_unpack"
+"COLUMN-HEADERS<\\><\\>Weekdate<\\>Team<\\>Premerge Lot Count<\\>Premerge Bundle Count<\\>Premerge Goal<\\>Premerge Lot Delta<\\>Small Kitting Lot Count<\\>Small Kitting Bundle Count<\\>Save Bin Lot Count<\\>Save Bin Bundle Count<\\>Total Small Lot Count<\\>Total Small Bundle Count<\\>Goal<\\>Lot Delta<\\>All Bundle Met Pack<\\>All Bundle Unpack"
+"COLUMN-ALIGNMENT<\\><\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left"
+"COLUMN-FORMAT<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"COLUMN-RULE1<\\>lot_delta<\\>lot_delta<\\>LT<\\>0<\\>background-color:red<\\>color:white<\\>font-style:normal<\\>font-weight:bold<\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"COLUMN-RULE2<\\>premerge_lot_delta<\\>premerge_lot_delta<\\>LT<\\>0<\\>background-color:red<\\>color:white<\\>font-style:normal<\\>font-weight:bold<\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"COLUMN-RULE3<\\>bundle_delta<\\>bundle_delta<\\>LT<\\>0<\\>background-color:red<\\>color:white<\\>font-style:normal<\\>font-weight:bold<\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"COLUMN-RULE4<\\>premerge_bundle_delta<\\>premerge_bundle_delta<\\>LT<\\>0<\\>background-color:red<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"HTML-REPORT-SPEC-END"
+"HTML-CREATE WINDOW:WIN9</@#;>1@@@SmallLotReport.htm@@@sqlpathfinder_style_2.css@@@E->Y@@@RR->NO@@@B->N@@@EM-A->@@@EM-S->@@@SEC->Y@@@Text:1:white<:>black<:>Y<:>N<:>N<:>verdana<:>18<:>Center<:>SFGI Small Lot Report<<TS>>|MYREPORT8|Text:1:white<:>black<:>N<:>N<:>N<:>Verdana<:>12<:>Left<:>URL:<a target=<~>content<~> href=<~>\\cdsvmfg001\mfg_ops_data\gSFGI\iSFGI Shift SmallLot Report\FPOLOT.csv<~>>FPO LOT list</a>  <a target=<~>content<~> href=<~>\\cdsvmfg001\mfg_ops_data\gSFGI\iSFGI Shift SmallLot Report\Savebin.csv<~>>Savebin list</a>  <a target=<~>content<~> href=<~>\\cdsvmfg001\mfg_ops_data\gSFGI\iSFGI Shift SmallLot Report\Premergelist.csv<~>>Premerge list</a><br>@@@</@#;>Win9</@#;>SFGI Shift Small Lot Report"
+"HTML-END"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Copy:N@EXEDIR@\SPFCopy.bat <~>sqlpathfinder_style_2.css,FPOLOT.csv,Savebin.csv,Premergelist.csv,SmallLotReport.htm<~> <~>\\cdATSHFS.intel.com\CDATAnalysis$\MAOATM\WangQi4\SFGI SmallLot Report\<~> <~>N<~>"
+"UTILITIESDESC:","Copy Files/Folders"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Value-In-File:Y{VALUE-IN-FILE} <~>calendar1.tab<~> <~>MyData<~> <~>hour<~>"
+"UTILITIESDESC:","Retrieve a column value in a File"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Start-Macro:Y{START-MACRO} <~>calendar1.tab<~>"
+"UTILITIESDESC:","Start Macro Processing"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->If-Then:Y{IF-THEN} <~>Mydata<~> <~>GT<~> <~>11<~> <~>AND<~> <~>Mydata<~> <~>LT<~> <~>12<~>"
+"UTILITIESDESC:","Apply Conditional Logic"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Rows-In-File:Y{ROWS-IN-FILE} <~>SFGI_small_lot_report2.csv<~> <~>RowsInFile<~> <~>N<~>"
+"UTILITIESDESC:","Count Rows in a File"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->If-Then:Y{IF-THEN} <~>RowsInFile<~> <~>GT<~> <~>0<~> <~><~> <~><~> <~><~> <~><~>"
+"UTILITIESDESC:","Apply Conditional Logic"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Email:Y@EXEDIR@\SQLPathFinder_Email.va <~>sqlpathfinder_style_2.css<~> <~>cdat.sthi.sup@intel.com,carol.liu@intel.com,xianfu.zhong@intel.com,cdat.sthi.os@intel.com,xuebo.zhang@intel.com<~> <~>SFGI Delivery Goal Tracking<~> <~>SmallLotReport.htm<~> <~>self<~> <~><~> <~><~> <~>N<~> <~><<<spf-email-type>>><~>"
+"UTILITIESDESC:","Email Results"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->End-If:Y{END-IF}"
+"UTILITIESDESC:",""
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Pre/Post Query:Y{FPO1 All Lot}</@#;>FPO1 All Lot"
+"UTILITIESDESC:","Pre/Post Query"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Pre/Post Query:Y{FPO2 All lot}</@#;>FPO2 All lot"
+"UTILITIESDESC:","Pre/Post Query"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Pre/Post Query:Y{SFGL_ALL_LOT_REPORT}</@#;>SFGL_ALL_LOT_REPORT"
+"UTILITIESDESC:","Pre/Post Query"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Pre/Post Query:Y{Month small Data}</@#;>Month small Data"
+"UTILITIESDESC:","Pre/Post Query"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Pre/Post Query:Y{SmallLot summery}</@#;>SmallLot summery"
+"UTILITIESDESC:","Pre/Post Query"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Smart-Append:Y@EXEDIR@\SmartAppend.va <~>smalllotmonthdata.tab<~> <~>smalllot_summery.tab<~> <~><~> <~><~> <~><~> <~>N<~> <~>N<~> <~><~> <~>Version 3<~> <~><<<spf-hadoop-server>>><~> <~><~>"
+"UTILITIESDESC:","Smart-Append Data"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Copy:Y@EXEDIR@\SPFCopy.bat <~>smalllotmonthdata.tab<~> <~>\\cdATSHFS.intel.com\CDATAnalysis$\MAOATM\WangQi4\SFGI SmallLot Report\<~> <~>N<~>"
+"UTILITIESDESC:","Copy Files/Folders"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Pre/Post Query:Y{All Lot Sumery}</@#;>All Lot Data"
+"UTILITIESDESC:","Pre/Post Query"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Pre/Post Query:Y{All Lot Summery}</@#;>All Lot Summery"
+"UTILITIESDESC:","Pre/Post Query"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Smart-Append:Y@EXEDIR@\SmartAppend.va <~>Alllotdata.tab<~> <~>alllot_summery.tab<~> <~><~> <~><~> <~><~> <~>N<~> <~>N<~> <~><~> <~>Version 3<~> <~><<<spf-hadoop-server>>><~> <~><~>"
+"UTILITIESDESC:","Smart-Append Data"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Pre/Post Query:Y{IN SFGI}</@#;>IN SFGI"
+"UTILITIESDESC:","Pre/Post Query"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Pre/Post Query:Y{PrePostQuery_29}</@#;>IN SFGI Sort"
+"UTILITIESDESC:","Pre/Post Query"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Pre/Post Query:Y{Small lot Chart}</@#;>Small lot Chart"
+"UTILITIESDESC:","Pre/Post Query"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Pre/Post Query:Y{Small JOin Report}</@#;>Small JOin Report"
+"UTILITIESDESC:","Pre/Post Query"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Pre/Post Query:Y{1_0}</@#;>IN SFGI FINAL"
+"UTILITIESDESC:","Pre/Post Query"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Pre/Post Query:Y{INSFGI Chart}</@#;>INSFGI Chart"
+"UTILITIESDESC:","Pre/Post Query"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Pre/Post Query:Y{HTML}</@#;>HTML"
+"UTILITIESDESC:","Pre/Post Query"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->End-If:Y{END-IF}"
+"UTILITIESDESC:",""
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->End-Macro:Y{END-MACRO}"
+"UTILITIESDESC:",""
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->SharePoint:Y@EXEDIR@\PublishToSP.va <~>SmallLotReport.htm,sqlpathfinder_style_2.css<~> <~>https://content.sp2019.intel.com/sites/CD/CDATwebshare/IonReport/SFGI_kitting_report/<~> <~><~> <~><~> "
+"UTILITIESDESC:","Publish to SharePoint"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"f(x)->buddle","buddle","Y","None","Sum","Row","f","buddle","csv","SQL->CASE WHEN a0.[buddle] = '' THEN NULL ELSE CAST (a0.[buddle] AS REAL) END","col28"
+"a0.pg3","pg3","Y","None","None","Row","c","","csv","SQL->a0.[pg3]","col29"
+"a0.weekdate","weekdate","Y","None","None","Row","c","","csv","SQL->a0.[weekdate]","col30"
+"a0.team","team","Y","None","None","Row","c","","csv","SQL->a0.[team]","col31"
+"a0.lot","lot","Y","None","Count","Row","c","","csv","SQL->a0.[lot]","col32"
+"JOINGRID:"
+"FILTERGRID:"
+/START_EMBED_ALL
+/EMBED=VG2;Premerge_Report
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","No"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","Yes"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:",""
+"EXCEL:","Premerge-Report.tab"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","N"
+"QUERYROWS:","13"
+"JOINROWS:","1"
+"FILTERROWS:","0"
+"COL_ID_COUNTER:","22"
+"CHART_COUNTER:","0"
+"PIVOTMODE:","0"
+"SQLITESPECIALHDRS:","1"
+"LEGACYPIVOTHDRS:","0"
+"USEPYENGINE:","Y"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","1:5:SQL"
+"TABLEGRID:","2"
+"","Premerge_count.csv a0",""
+"","PremergeDistinctlist.csv a1",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","SQLite"
+"SINGLENODE:","TEXT (SQLite)"
+"SINGLESCHEMA:","N/A"
+"PROMPT-TEXT:","Fetching Text (SQLite) Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"PREPROCESS_CSV:","No"
+"NOHDRS:","No"
+"CARTESIAN:","No"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"f(x)->buddle","buddle1","P","None","None","Row","f","buddle","csv","SQL->CASE WHEN a0.[buddle] = '' THEN NULL ELSE CAST (a0.[buddle] AS REAL) END","col15"
+"f(x)->duplicate","duplicate","Y","None","None","Row","n","duplicate","csv","SQL->CASE WHEN a1.[duplicate] = '' THEN NULL ELSE CAST (a1.[duplicate] AS INTEGER) END","col11"
+"f(x)->100","Goal","Y","None","None","Row","N","***","","SQL->100","col6"
+"a0.weekdate","weekdate","Y","None","None","Row","c","","csv","SQL->a0.[weekdate]","col9"
+"a0.team","team","Y","None","None","Row","c","","csv","SQL->a0.[team]","col10"
+"a1.weekdate","weekdate_1","N","None","None","Row","c","","csv","SQL->a1.[weekdate]","col12"
+"f(x)->SUM ( {buddle1} ) OVER (PARTITION BY  {weekdate} )","buddle","Y","None","None","Row","F","***","@if@1","SQL->SUM ( {col15} ) OVER (PARTITION BY  {col9} )","col16"
+"f(x)->{buddle} + {duplicate}","Total_bundle_Count","Y","None","None","Row","F","***","@if@2","SQL->{col16} + {col11}","col17"
+"f(x)->{goal}  -  {total_count}","Bundle_Delta","Y","None","None","Row","F","***","@if@3","SQL->{col6}  -  {col17}","col18"
+"f(x)->lot","lot1","N","None","None","Row","f","lot","csv","SQL->CASE WHEN a0.[lot] = '' THEN NULL ELSE CAST (a0.[lot] AS REAL) END","col19"
+"f(x)->{lot} + {duplicate}","Total_lot_count","Y","None","None","Row","F","***","@if@2","SQL->{col22} + {col11}","col20"
+"f(x)->{goal}  -   {total_lot_count}","Lot_Delta","Y","None","None","Row","F","***","@if@3","SQL->{col6}  -   {col20}","col21"
+"f(x)->SUM (  {lot1} ) OVER (PARTITION BY  {weekdate} )","lot","Y","None","None","Row","F","***","@if@1","SQL->SUM (  {col19} ) OVER (PARTITION BY  {col9} )","col22"
+"JOINGRID:"
+"","","Sqlite->a0.weekdate                                                                                                    : SQL->{col9}","=","Sqlite->a1.weekdate                                                                                                    : SQL->{col12}",""
+"FILTERGRID:"
+
+
+/END_EMBED
+/EMBED=VG2;FPO1
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","No"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","Yes"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:",""
+"EXCEL:","FPO1.csv"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","N"
+"QUERYROWS:","18"
+"JOINROWS:","1"
+"FILTERROWS:","1"
+"COL_ID_COUNTER:","21"
+"CHART_COUNTER:","0"
+"PIVOTMODE:","0"
+"JOINHADOOP:","0"
+"SQLITESPECIALHDRS:","1"
+"LEGACYPIVOTHDRS:","0"
+"USEPYENGINE:","Y"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","1:5:SQL"
+"TABLEGRID:","2"
+"","FPOLOT.csv a0",""
+"","bundlesize.tab a1",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","SQLite"
+"SINGLENODE:","TEXT (SQLite)"
+"SINGLESCHEMA:","N/A"
+"PROMPT-TEXT:","Fetching Text (SQLite) Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"PREPROCESS_CSV:","No"
+"NOHDRS:","No"
+"CARTESIAN:","No"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"a0.weekdate","weekdate","Y","None","None","Row","c","","csv","SQL->a0.[weekdate]","col4"
+"a0.team","team","Y","None","None","Row","c","","csv","SQL->a0.[team]","col5"
+"a0.operation","operation","P","None","None","Row","c","","csv","SQL->a0.[operation]","col6"
+"a0.prod","prod","P","None","None","Row","c","","csv","SQL->a0.[prod]","col7"
+"a0.transaction","transaction","P","None","None","Row","c","","csv","SQL->a0.[transaction]","col8"
+"a0.newqty1","newqty1","P","None","None","Row","c","","csv","SQL->a0.[newqty1]","col9"
+"a0.oldqty1","oldqty1","P","None","None","Row","c","","csv","SQL->a0.[oldqty1]","col10"
+"a0.motherlot","motherlot","P","None","None","Row","c","","csv","SQL->a0.[motherlot]","col11"
+"a0.childlot","childlot","P","None","None","Row","c","","csv","SQL->a0.[childlot]","col12"
+"a0.cplttime","cplttime","P","None","None","Row","c","","csv","SQL->a0.[cplttime]","col13"
+"f(x)->childlotqty","childlotqty","P","None","None","Row","f","childlotqty","csv","SQL->CASE WHEN a0.[childlotqty] = '' THEN NULL ELSE CAST (a0.[childlotqty] AS REAL) END","col14"
+"a0.smalllotflag","smalllotflag1","P","None","None","Row","c","","csv","SQL->a0.[smalllotflag]","col15"
+"a0.qty","qty","P","None","None","Row","c","","csv","SQL->a0.[qty]","col16"
+"a0.msmalllotflag","msmalllotflag","P","None","None","Row","c","","csv","SQL->a0.[msmalllotflag]","col17"
+"a1.prod","prod_1","P","None","None","Row","c","","csv","SQL->a1.[prod]","col18"
+"f(x)->bundle size","bundle size","P","None","None","Row","f","bundle size","csv","SQL->CASE WHEN a1.[bundle size] = '' THEN NULL ELSE CAST (a1.[bundle size] AS REAL) END","col19"
+"f(x)->CEIL(  {childlotqty} / {bundle size} )","smalllot_bundle_flag","Y","None","Sum","Row","F","***","@if@1","SQL->CEIL(  {col14} / {col19} )","col20"
+"a0.smalllotflag","smalllotflag","Y","None","Count","Row","c","","csv","SQL->a0.[smalllotflag]","col21"
+"JOINGRID:"
+"","","Sqlite->a0.prod                                                                                                    : SQL->{col7}","=","Sqlite->a1.prod                                                                                                    : SQL->{col18}",""
+"FILTERGRID:"
+"AND","","a0.smalllotflag","=","'Y'","","","c","csv","SQL->a0.[smalllotflag]",""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/END_EMBED
+/EMBED=VG2;FPO2
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","No"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","Yes"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:",""
+"EXCEL:","FPO2.csv"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","N"
+"QUERYROWS:","9"
+"JOINROWS:","1"
+"FILTERROWS:","1"
+"COL_ID_COUNTER:","9"
+"CHART_COUNTER:","0"
+"PIVOTMODE:","0"
+"JOINHADOOP:","0"
+"SQLITESPECIALHDRS:","1"
+"LEGACYPIVOTHDRS:","0"
+"USEPYENGINE:","Y"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","1:5:SQL"
+"TABLEGRID:","2"
+"","FPOLOT.csv a0",""
+"","bundlesize.tab a1",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","SQLite"
+"SINGLENODE:","TEXT (SQLite)"
+"SINGLESCHEMA:","N/A"
+"PROMPT-TEXT:","Fetching Text (SQLite) Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"PREPROCESS_CSV:","No"
+"NOHDRS:","No"
+"CARTESIAN:","No"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"a0.weekdate","weekdate","Y","None","None","Row","c","","csv","SQL->a0.[weekdate]","col1"
+"a0.team","team","Y","None","None","Row","c","","csv","SQL->a0.[team]","col2"
+"a0.msmalllotflag","msmalllotflag1","P","None","None","Row","c","","csv","SQL->a0.[msmalllotflag]","col3"
+"a0.prod","prod","P","None","None","Row","c","","csv","SQL->a0.[prod]","col4"
+"f(x)->newqty1","newqty1","P","None","None","Row","f","newqty1","csv","SQL->CASE WHEN a0.[newqty1] = '' THEN NULL ELSE CAST (a0.[newqty1] AS REAL) END","col5"
+"a1.prod","prod_1","P","None","None","Row","c","","csv","SQL->a1.[prod]","col6"
+"f(x)->bundle size","bundle size","P","None","None","Row","f","bundle size","csv","SQL->CASE WHEN a1.[bundle size] = '' THEN NULL ELSE CAST (a1.[bundle size] AS REAL) END","col7"
+"f(x)->CEIL( {newqty1} / {bundle size} )","msmalllot_bundle_flag","Y","None","Sum","Row","F","***","@if@1","SQL->CEIL( {col5} / {col7} )","col8"
+"a0.msmalllotflag","msmalllotflag","Y","None","Count","Row","c","","csv","SQL->a0.[msmalllotflag]","col9"
+"JOINGRID:"
+"","","Sqlite->a0.prod                                                                                                    : SQL->{col4}","=","Sqlite->a1.prod                                                                                                    : SQL->{col6}",""
+"FILTERGRID:"
+"AND","","a0.msmalllotflag","=","'Y'","","","c","csv","SQL->a0.[msmalllotflag]",""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/END_EMBED
+/EMBED=VG2;SFGI_Small_Lot_Report
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","Yes"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","Yes"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:",""
+"EXCEL:","Month_small_lot.csv"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","N"
+"QUERYROWS:","34"
+"JOINROWS:","5"
+"FILTERROWS:","0"
+"COL_ID_COUNTER:","56"
+"CHART_COUNTER:","0"
+"PIVOTMODE:","0"
+"SQLITESPECIALHDRS:","1"
+"LEGACYPIVOTHDRS:","0"
+"USEPYENGINE:","Y"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","1:5:SQL"
+"TABLEGRID:","6"
+"","FPO1.csv a0",""
+"","FPO2.csv a1",""
+"","Premerge-Report.tab a2",""
+"","Savebinkittingcount.csv a3",""
+"","mainrouteopr2.csv a4",""
+"","unpack1.csv a5",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","SQLite"
+"SINGLENODE:","TEXT (SQLite)"
+"SINGLESCHEMA:","N/A"
+"PROMPT-TEXT:","Fetching Text (SQLite) Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"PREPROCESS_CSV:","No"
+"NOHDRS:","No"
+"CARTESIAN:","No"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"a0.weekdate","weekdate","Y","None","None","Row","c","","csv","SQL->a0.[weekdate]","col1"
+"a0.team","team","Y","None","None","Row","c","","csv","SQL->a0.[team]","col2"
+"f(x)->IFNULL((CASE WHEN a2.[total_lot_count] = '' THEN NULL ELSE CAST (a2.[total_lot_count] AS INTEGER) END),0)","Premerge_Lot_Count","Y","None","None","Row","N","***Premerge_Count","csv","SQL->IFNULL((CASE WHEN a2.[total_lot_count] = '' THEN NULL ELSE CAST (a2.[total_lot_count] AS INTEGER) END),0)","col7"
+"f(x)->IFNULL((CASE WHEN a2.[total_bundle_count] = '' THEN NULL ELSE CAST (a2.[total_bundle_count] AS INTEGER) END),0)","Premerge_Bundle_Count","Y","None","None","Row","N","***","","SQL->IFNULL((CASE WHEN a2.[total_bundle_count] = '' THEN NULL ELSE CAST (a2.[total_bundle_count] AS INTEGER) END),0)","col32"
+"f(x)->Premerge_Goal","Premerge_Goal","Y","None","None","Row","n","Premerge_Goal","csv","SQL->CASE WHEN a2.[goal] = '' THEN NULL ELSE CAST (a2.[goal] AS INTEGER) END","col18"
+"f(x)->{premerge_count}  -  {premerge_goal}","Premerge_Lot_Delta","Y","None","None","Row","N","***","@if@1","SQL->{col7}  -  {col18}","col19"
+"f(x)->IFNULL(({smalllotflag_1} +   {msmalllotflag_1}),0)","Small_Kitting_Lot_Count","Y","None","None","Row","N","***","@if@1","SQL->IFNULL(({col41} +   {col44}),0)","col10"
+"f(x)->IFNULL(({smalllot_bundle_flag} +    {msmalllot_bundle_flag}),0)","Small_Kitting_Bundle_Count","Y","None","None","Row","N","***","@if@1","SQL->IFNULL(({col42} +    {col43}),0)","col49"
+"f(x)->CASE WHEN  {save_bin_lot_count1} is null  THEN 0 ELSE  {save_bin_lot_count1} END","Save_Bin_Lot_Count","Y","None","None","Row","N","***","@if@1","SQL->CASE WHEN  {col45} is null  THEN 0 ELSE  {col45} END","col53"
+"f(x)->childlot","Save_Bin_Lot_Count1","P","None","None","Row","n","childlot","csv","SQL->CASE WHEN a3.[childlot] = '' THEN NULL ELSE CAST (a3.[childlot] AS INTEGER) END","col45"
+"f(x)->childlot_bundle","Save_Bin_Bundle_Count1","P","None","None","Row","n","childlot_bundle","csv","SQL->CASE WHEN a3.[childlot_bundle] = '' THEN NULL ELSE CAST (a3.[childlot_bundle] AS INTEGER) END","col46"
+"f(x)->CASE WHEN   {save_bin_bundle_count1} is null  THEN 0 ELSE   {save_bin_bundle_count1} END","Save_Bin_Bundle_Count","Y","None","None","Row","N","***","@if@1","SQL->CASE WHEN   {col46} is null  THEN 0 ELSE   {col46} END","col54"
+"f(x)->IFNULL(({premerge_lot_count}   +  {small_kitting_lot_count} +    {save_bin_lot_count}),0)","Total_Small_Lot_Count","Y","None","None","Row","N","***","@if@2","SQL->IFNULL(({col7}   +  {col10} +    {col53}),0)","col11"
+"f(x)->IFNULL(({premerge_bundle_count} +    {small_kitting_bundle_count} +     {save_bin_bundle_count}),0)","Total_Small_Bundle_Count","Y","None","None","Row","N","***","@if@2","SQL->IFNULL(({col32} +    {col49} +     {col54}),0)","col47"
+"f(x)->160","Goal","Y","None","None","Row","N","***","","SQL->160","col12"
+"f(x)->{total_small_lot_count}- {goal}","Lot_Delta","Y","None","None","Row","N","***","@if@3","SQL->{col11}- {col12}","col13"
+"a1.weekdate","weekdate_1","N","None","None","Row","c","","csv","SQL->a1.[weekdate]","col4"
+"a1.team","team_1","N","None","None","Row","c","","csv","SQL->a1.[team]","col5"
+"a2.weekdate","weekdate_2","N","None","None","Row","c","","csv","SQL->a2.[weekdate]","col8"
+"a2.team","team_2","N","None","None","Row","c","","csv","SQL->a2.[team]","col9"
+"a3.weekdate","weekdate_3","N","None","None","Row","c","","csv","SQL->a3.[weekdate]","col14"
+"a3.team","team_3","N","None","None","Row","c","","csv","SQL->a3.[team]","col16"
+"f(x)->IFNULL(CASE WHEN CASE WHEN a4.[met_pack] = '' THEN NULL ELSE CAST (a4.[met_pack] AS REAL) END = '' THEN NULL ELSE CAST (CASE WHEN a4.[met_pack] = '' THEN NULL ELSE CAST (a4.[met_pack] AS REAL) END AS INTEGER) END,0)","met_pack","Y","None","None","Row","N","***met_pack","csv","SQL->IFNULL(CASE WHEN CASE WHEN a4.[met_pack] = '' THEN NULL ELSE CAST (a4.[met_pack] AS REAL) END = '' THEN NULL ELSE CAST (CASE WHEN a4.[met_pack] = '' THEN NULL ELSE CAST (a4.[met_pack] AS REAL) END AS INTEGER) END,0)","col25"
+"f(x)->IFNULL(CASE WHEN a5.[all_unpack] = '' THEN NULL ELSE CAST (a5.[all_unpack] AS INTEGER) END,0)","all_unpack","Y","None","None","Row","N","***all_unpack","csv","SQL->IFNULL(CASE WHEN a5.[all_unpack] = '' THEN NULL ELSE CAST (a5.[all_unpack] AS INTEGER) END,0)","col52"
+"f(x)->Datetime('now','localtime')","current_time","Y","None","None","Row","H","***","","SQL->Datetime('now','localtime')","col29"
+"f(x)->total_bundle_count","total_bundle_count","N","None","None","Row","f","total_bundle_count","csv","SQL->CASE WHEN a2.[total_bundle_count] = '' THEN NULL ELSE CAST (a2.[total_bundle_count] AS REAL) END","col31"
+"f(x)->IFNULL(CASE WHEN a0.[smalllotflag] = '' THEN NULL ELSE CAST (a0.[smalllotflag] AS INTEGER) END,0)","smalllotflag_1","N","None","None","Row","N","***smalllotflag_1","csv","SQL->IFNULL(CASE WHEN a0.[smalllotflag] = '' THEN NULL ELSE CAST (a0.[smalllotflag] AS INTEGER) END,0)","col41"
+"f(x)->IFNULL(CASE WHEN a0.[smalllot_bundle_flag] = '' THEN NULL ELSE CAST (a0.[smalllot_bundle_flag] AS INTEGER) END,0)","smalllot_bundle_flag","N","None","None","Row","N","***smalllot_bundle_flag","csv","SQL->IFNULL(CASE WHEN a0.[smalllot_bundle_flag] = '' THEN NULL ELSE CAST (a0.[smalllot_bundle_flag] AS INTEGER) END,0)","col42"
+"f(x)->IFNULL(CASE WHEN a1.[msmalllot_bundle_flag] = '' THEN NULL ELSE CAST (a1.[msmalllot_bundle_flag] AS INTEGER) END,0)","msmalllot_bundle_flag","N","None","None","Row","N","***msmalllot_bundle_flag","csv","SQL->IFNULL(CASE WHEN a1.[msmalllot_bundle_flag] = '' THEN NULL ELSE CAST (a1.[msmalllot_bundle_flag] AS INTEGER) END,0)","col43"
+"f(x)->IFNULL(CASE WHEN a1.[msmalllotflag] = '' THEN NULL ELSE CAST (a1.[msmalllotflag] AS INTEGER) END,0)","msmalllotflag_1","N","None","None","Row","N","***msmalllotflag_1","csv","SQL->IFNULL(CASE WHEN a1.[msmalllotflag] = '' THEN NULL ELSE CAST (a1.[msmalllotflag] AS INTEGER) END,0)","col44"
+"a4.lot","lot","N","None","None","Row","c","","csv","SQL->a4.[lot]","col50"
+"a5.lot","lot_1","N","None","None","Row","c","","csv","SQL->a5.[lot]","col51"
+"a4.yy_ww","yy_ww","Y","None","None","Row","c","","csv","SQL->a4.[yy_ww]","col55"
+"a5.yy_ww","yy_ww_1","Y","None","None","Row","c","","csv","SQL->a5.[yy_ww]","col56"
+"JOINGRID:"
+"","","Sqlite->a0.weekdate                                                                                                    : SQL->{col1}","=","Sqlite->a1.weekdate                                                                                                    : SQL->{col4}",""
+"","","Sqlite->a0.weekdate                                                                                                    : SQL->{col1}","=","Sqlite->a2.weekdate                                                                                                    : SQL->{col8}",""
+"","","Sqlite->a0.weekdate                                                                                                    : SQL->{col1}","=","Sqlite->a3.weekdate                                                                                                    : SQL->{col14}",""
+"","","Sqlite->a0.weekdate                                                                                                    : SQL->{col1}","=","Sqlite->a4.yy_ww                                                                                                    : SQL->{col55}",""
+"","","Sqlite->a0.weekdate                                                                                                    : SQL->{col1}","=","Sqlite->a5.yy_ww                                                                                                    : SQL->{col56}",""
+"FILTERGRID:"
+
+
+/END_EMBED
+/EMBED=VG2;Savebin
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","No"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","Yes"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:",""
+"EXCEL:","Savebinkittingcount.csv"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","N"
+"QUERYROWS:","10"
+"JOINROWS:","1"
+"FILTERROWS:","0"
+"COL_ID_COUNTER:","11"
+"CHART_COUNTER:","0"
+"PIVOTMODE:","0"
+"JOINHADOOP:","0"
+"SQLITESPECIALHDRS:","1"
+"LEGACYPIVOTHDRS:","0"
+"USEPYENGINE:","Y"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","1:5:SQL"
+"TABLEGRID:","2"
+"","Savebin.csv a0",""
+"","bundlesize.tab a1",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","SQLite"
+"SINGLENODE:","TEXT (SQLite)"
+"SINGLESCHEMA:","N/A"
+"PROMPT-TEXT:","Fetching Text (SQLite) Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"PREPROCESS_CSV:","No"
+"NOHDRS:","No"
+"CARTESIAN:","No"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"a0.weekdate","weekdate","Y","None","None","Row","c","","csv","SQL->a0.[weekdate]","col1"
+"a0.team","team","Y","None","None","Row","c","","csv","SQL->a0.[team]","col2"
+"a0.childlot","childlot1","P","None","None","Row","c","","csv","SQL->a0.[childlot]","col4"
+"f(x)->newqty1","newqty1","P","None","None","Row","f","newqty1","csv","SQL->CASE WHEN a0.[newqty1] = '' THEN NULL ELSE CAST (a0.[newqty1] AS REAL) END","col5"
+"a0.prod","prod","P","None","None","Row","c","","csv","SQL->a0.[prod]","col6"
+"a1.prod","prod_1","P","None","None","Row","c","","csv","SQL->a1.[prod]","col7"
+"f(x)->bundle size","bundle size","P","None","None","Row","f","bundle size","csv","SQL->CASE WHEN a1.[bundle size] = '' THEN NULL ELSE CAST (a1.[bundle size] AS REAL) END","col8"
+"f(x)->CEIL(  {childlotqty} / {bundle size} )","childlot_bundle","Y","None","Sum","Row","F","***","@if@1","SQL->CEIL(  {col11} / {col8} )","col9"
+"a0.childlot","childlot","Y","None","Count","Row","c","","csv","SQL->a0.[childlot]","col10"
+"f(x)->childlotqty","childlotqty","P","None","None","Row","f","childlotqty","csv","SQL->CASE WHEN a0.[childlotqty] = '' THEN NULL ELSE CAST (a0.[childlotqty] AS REAL) END","col11"
+"JOINGRID:"
+"","","Sqlite->a0.prod                                                                                                    : SQL->{col6}","=","Sqlite->a1.prod                                                                                                    : SQL->{col7}",""
+"FILTERGRID:"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/END_EMBED
+/EMBED=VG2;Premergelist1
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","No"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","No"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:",""
+"EXCEL:","Premergelist1.tab"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","N"
+"QUERYROWS:","16"
+"JOINROWS:","1"
+"FILTERROWS:","1"
+"COL_ID_COUNTER:","18"
+"CHART_COUNTER:","0"
+"PIVOTMODE:","0"
+"JOINHADOOP:","0"
+"SQLITESPECIALHDRS:","1"
+"LEGACYPIVOTHDRS:","0"
+"USEPYENGINE:","Y"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","1:5:SQL"
+"TABLEGRID:","2"
+"","Premergelist.csv a0",""
+"","bundlesize.tab a1",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","SQLite"
+"SINGLENODE:","TEXT (SQLite)"
+"SINGLESCHEMA:","N/A"
+"PROMPT-TEXT:","Fetching Text (SQLite) Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"PREPROCESS_CSV:","No"
+"NOHDRS:","No"
+"CARTESIAN:","No"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"a0.lot","lot","Y","None","None","Row","c","","csv","SQL->a0.[lot]","col1"
+"a0.operation","operation","Y","None","None","Row","c","","csv","SQL->a0.[operation]","col2"
+"a0.transaction","transaction","Y","None","None","Row","c","","csv","SQL->a0.[transaction]","col3"
+"a0.owner_new","owner_new","Y","None","None","Row","c","","csv","SQL->a0.[owner_new]","col4"
+"a0.txn_date","txn_date","Y","None","None","Row","c","","csv","SQL->a0.[txn_date]","col5"
+"a0.from_to_lot","from_to_lot","Y","None","None","Row","c","","csv","SQL->a0.[from_to_lot]","col6"
+"f(x)->oldqty1","oldqty1","Y","None","None","Row","f","oldqty1","csv","SQL->CASE WHEN a0.[oldqty1] = '' THEN NULL ELSE CAST (a0.[oldqty1] AS REAL) END","col7"
+"f(x)->newqty1","newqty1","Y","None","None","Row","f","newqty1","csv","SQL->CASE WHEN a0.[newqty1] = '' THEN NULL ELSE CAST (a0.[newqty1] AS REAL) END","col8"
+"a0.product_new","product_new","Y","None","None","Row","c","","csv","SQL->a0.[product_new]","col9"
+"a0.pg3","pg3","Y","None","None","Row","c","","csv","SQL->a0.[pg3]","col10"
+"a0.weekdate","weekdate","Y","None","None","Row","c","","csv","SQL->a0.[weekdate]","col11"
+"a0.team","team","Y","None","None","Row","c","","csv","SQL->a0.[team]","col12"
+"a1.prod","prod","Y","None","None","Row","c","","csv","SQL->a1.[prod]","col15"
+"a1.bundle size","bundle size","Y","None","None","Row","c","","csv","SQL->a1.[bundle size]","col16"
+"f(x)->{newqty1} / {bundle size}","buddleqty1","Y","None","None","Row","F","***","@if@1","SQL->{col8} / {col16}","col17"
+"f(x)->CEIL( {buddleqty1} )","buddle","Y","None","None","Row","F","***","@if@2","SQL->CEIL( {col17} )","col18"
+"JOINGRID:"
+"","","Sqlite->a0.pg3                                                                                                    : SQL->{col10}","=","Sqlite->a1.prod                                                                                                    : SQL->{col15}",""
+"FILTERGRID:"
+"AND","","a1.bundle size","=","","","","c","csv","SQL->a1.[bundle size]",""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/END_EMBED
+/EMBED=VG2;FPO1 All Lot
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","No"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","Yes"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:",""
+"EXCEL:","FPO1_alllot.csv"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","N"
+"QUERYROWS:","18"
+"JOINROWS:","1"
+"FILTERROWS:","0"
+"COL_ID_COUNTER:","21"
+"CHART_COUNTER:","0"
+"PIVOTMODE:","0"
+"JOINHADOOP:","0"
+"SQLITESPECIALHDRS:","1"
+"LEGACYPIVOTHDRS:","0"
+"USEPYENGINE:","Y"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","1:5:SQL"
+"TABLEGRID:","2"
+"","FPOLOT.csv a0",""
+"","bundlesize.tab a1",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","SQLite"
+"SINGLENODE:","TEXT (SQLite)"
+"SINGLESCHEMA:","N/A"
+"PROMPT-TEXT:","Fetching Text (SQLite) Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"PREPROCESS_CSV:","No"
+"NOHDRS:","No"
+"CARTESIAN:","No"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"a0.weekdate","weekdate","Y","None","None","Row","c","","csv","SQL->a0.[weekdate]","col4"
+"a0.team","team","Y","None","None","Row","c","","csv","SQL->a0.[team]","col5"
+"a0.operation","operation","P","None","None","Row","c","","csv","SQL->a0.[operation]","col6"
+"a0.prod","prod","P","None","None","Row","c","","csv","SQL->a0.[prod]","col7"
+"a0.transaction","transaction","P","None","None","Row","c","","csv","SQL->a0.[transaction]","col8"
+"a0.newqty1","newqty1","P","None","None","Row","c","","csv","SQL->a0.[newqty1]","col9"
+"a0.oldqty1","oldqty1","P","None","None","Row","c","","csv","SQL->a0.[oldqty1]","col10"
+"a0.motherlot","motherlot","P","None","None","Row","c","","csv","SQL->a0.[motherlot]","col11"
+"a0.childlot","childlot","P","None","None","Row","c","","csv","SQL->a0.[childlot]","col12"
+"a0.cplttime","cplttime","P","None","None","Row","c","","csv","SQL->a0.[cplttime]","col13"
+"f(x)->childlotqty","childlotqty","P","None","None","Row","f","childlotqty","csv","SQL->CASE WHEN a0.[childlotqty] = '' THEN NULL ELSE CAST (a0.[childlotqty] AS REAL) END","col14"
+"a0.smalllotflag","smalllotflag1","P","None","None","Row","c","","csv","SQL->a0.[smalllotflag]","col15"
+"a0.qty","qty","P","None","None","Row","c","","csv","SQL->a0.[qty]","col16"
+"a0.msmalllotflag","msmalllotflag","P","None","None","Row","c","","csv","SQL->a0.[msmalllotflag]","col17"
+"a1.prod","prod_1","P","None","None","Row","c","","csv","SQL->a1.[prod]","col18"
+"f(x)->bundle size","bundle size","P","None","None","Row","f","bundle size","csv","SQL->CASE WHEN a1.[bundle size] = '' THEN NULL ELSE CAST (a1.[bundle size] AS REAL) END","col19"
+"f(x)->CEIL(  {childlotqty} / {bundle size} )","smalllot_bundle_flag","Y","None","Sum","Row","F","***","@if@1","SQL->CEIL(  {col14} / {col19} )","col20"
+"a0.smalllotflag","smalllotflag","Y","None","Count","Row","c","","csv","SQL->a0.[smalllotflag]","col21"
+"JOINGRID:"
+"","","Sqlite->a0.prod                                                                                                    : SQL->{col7}","=","Sqlite->a1.prod                                                                                                    : SQL->{col18}",""
+"FILTERGRID:"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/END_EMBED
+/EMBED=VG2;FPO2 All lot
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","No"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","Yes"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:",""
+"EXCEL:","FPO2_alllot.csv"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","N"
+"QUERYROWS:","9"
+"JOINROWS:","1"
+"FILTERROWS:","0"
+"COL_ID_COUNTER:","9"
+"CHART_COUNTER:","0"
+"PIVOTMODE:","0"
+"JOINHADOOP:","0"
+"SQLITESPECIALHDRS:","1"
+"LEGACYPIVOTHDRS:","0"
+"USEPYENGINE:","Y"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","1:5:SQL"
+"TABLEGRID:","2"
+"","FPOLOT.csv a0",""
+"","bundlesize.tab a1",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","SQLite"
+"SINGLENODE:","TEXT (SQLite)"
+"SINGLESCHEMA:","N/A"
+"PROMPT-TEXT:","Fetching Text (SQLite) Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"PREPROCESS_CSV:","No"
+"NOHDRS:","No"
+"CARTESIAN:","No"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"a0.weekdate","weekdate","Y","None","None","Row","c","","csv","SQL->a0.[weekdate]","col1"
+"a0.team","team","Y","None","None","Row","c","","csv","SQL->a0.[team]","col2"
+"a0.msmalllotflag","msmalllotflag1","P","None","None","Row","c","","csv","SQL->a0.[msmalllotflag]","col3"
+"a0.prod","prod","P","None","None","Row","c","","csv","SQL->a0.[prod]","col4"
+"f(x)->newqty1","newqty1","P","None","None","Row","f","newqty1","csv","SQL->CASE WHEN a0.[newqty1] = '' THEN NULL ELSE CAST (a0.[newqty1] AS REAL) END","col5"
+"a1.prod","prod_1","P","None","None","Row","c","","csv","SQL->a1.[prod]","col6"
+"f(x)->bundle size","bundle size","P","None","None","Row","f","bundle size","csv","SQL->CASE WHEN a1.[bundle size] = '' THEN NULL ELSE CAST (a1.[bundle size] AS REAL) END","col7"
+"f(x)->CEIL( {newqty1} / {bundle size} )","msmalllot_bundle_flag","Y","None","Sum","Row","F","***","@if@1","SQL->CEIL( {col5} / {col7} )","col8"
+"a0.msmalllotflag","msmalllotflag","Y","None","Count","Row","c","","csv","SQL->a0.[msmalllotflag]","col9"
+"JOINGRID:"
+"","","Sqlite->a0.prod                                                                                                    : SQL->{col4}","=","Sqlite->a1.prod                                                                                                    : SQL->{col6}",""
+"FILTERGRID:"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/END_EMBED
+/EMBED=VG2;MET PACK
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","No"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","No"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:","9021 PackWip\9021.exe"
+"EXCEL:","699_raw.csv"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","N"
+"QUERYROWS:","8"
+"JOINROWS:","2"
+"FILTERROWS:","3"
+"COL_ID_COUNTER:","29"
+"CHART_COUNTER:","4"
+"PIVOTMODE:","0"
+"JOINHADOOP:","0"
+"SQLITESPECIALHDRS:","1"
+"LEGACYPIVOTHDRS:","0"
+"USEPYENGINE:","Y"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","2:0:a0"
+"TABLEGRID:","1"
+"","F_Lot_History_v3",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","Oracle"
+"SINGLENODE:","Default"
+"SINGLESCHEMA:","Default"
+"PROMPT-TEXT:","Fetching MARS Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"FIRST_ROWS:","No"
+"ORDERED:","No"
+"OTHER-HINT:","No"
+"<---- New Query ---->","1:5:SQL"
+"TABLEGRID:","1"
+"","calendar.tab a1",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","SQLite"
+"SINGLENODE:","TEXT (SQLite)"
+"SINGLESCHEMA:","N/A"
+"PROMPT-TEXT:","Fetching Text (SQLite) Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"PREPROCESS_CSV:","No"
+"NOHDRS:","No"
+"CARTESIAN:","No"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"a0.lot","lot","Y","None","None","Row","c","Identifies a batch of wafers or units being processed in the factory.The basic format of the Lot number is: ?FYWWNNNN where F=fab code, Y=year, WW=workweek, NNNN= sequence, with the 9th or 10th characters as alphanumeric. In Fab, Etest and Sort, a quantity that has a wafer as an unit of measure and the physical form that passes through the factory. A lot starting the Fab process contains up to 25 wafers and can be split into child lots of varying sizes, and wafer losses can also occur. New lots are also created to split lots due to varying characteristics, such as speed or rework, for a portion of the lot. In some 200mm fabs production lots, the lot number uses a silicon vendor ID in the 8th character","f_lothist","a0->f0.lot","col15"
+"a0.operation","operation","Y","None","None","Row","c","Identifies a manufacturing process step or a holding point","f_lothist","a0->f0.operation","col16"
+"a0.prevout_date","prevout_date","Y","None","None","Row","d","The date and time the lot arrived at or was created at the current operation. This is typically the date and time the lot was moved out of the previous operation.","f_lothist","a0->f0.prevout_date","col17"
+"a0.owner","owner","Y","None","None","Row","c","Identifies the type of lot. E.g., PROD and MW","f_lothist","a0->f0.owner","col18"
+"a0.newqty1","newqty1","Y","None","None","Row","n","The number of wafers (or units) in the lot aftrer the last transaction was executed. Ultimately, it will equal the quantity of units in the lot when it is moved out of this operation.","f_lothist","a0->f0.newqty1","col19"
+"f(x)->start_date","start_date","Y","None","None","Row","d","start_date","csv","SQL->CASE WHEN a1.[start_date] = '' THEN NULL ELSE CAST (a1.[start_date] AS TEXT) END","col27"
+"f(x)->end_date","end_date","Y","None","None","Row","d","end_date","csv","SQL->CASE WHEN a1.[end_date] = '' THEN NULL ELSE CAST (a1.[end_date] AS TEXT) END","col28"
+"a1.yy_ww","yy_ww","Y","None","None","Row","c","","csv","SQL->a1.[yy_ww]","col29"
+"JOINGRID:"
+"","","View->a0.prevout_date                                                                                                    : a0->{col17}",">=","Sqlite->f(x)->start_date                                                                                                    : SQL->{col27}",""
+"","","View->a0.prevout_date                                                                                                    : a0->{col17}","<","Sqlite->f(x)->end_date                                                                                                    : SQL->{col28}",""
+"FILTERGRID:"
+"AND","","a0.operation","In","'7600'</comma\>'3200'</comma\>'9021'","","","c","f_lothist","a0->f0.operation",""
+"AND","","a0.prevout_date",">=","(TRUNC(SYSDATE) - 40 + ((12+7)/24))","",".","d","f_lothist","a0->f0.prevout_date",""
+"AND","","a0.owner","In","'PROD'</comma\>'ENG'</comma\>'RSCN'","","","c","f_lothist","a0->f0.owner",""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/END_EMBED
+/EMBED=VG2;SFGL_ALL_LOT_REPORT
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","Yes"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","Yes"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:",""
+"EXCEL:","ALL_LOT.csv"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","N"
+"QUERYROWS:","34"
+"JOINROWS:","5"
+"FILTERROWS:","0"
+"COL_ID_COUNTER:","58"
+"CHART_COUNTER:","0"
+"PIVOTMODE:","0"
+"JOINHADOOP:","0"
+"SQLITESPECIALHDRS:","1"
+"LEGACYPIVOTHDRS:","0"
+"USEPYENGINE:","Y"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","1:5:SQL"
+"TABLEGRID:","6"
+"","FPO1_alllot.csv a0",""
+"","FPO2_alllot.csv a1",""
+"","Premerge-Report.tab a2",""
+"","Savebinkittingcount.csv a3",""
+"","mainrouteopr2.csv a4",""
+"","unpack1.csv a5",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","SQLite"
+"SINGLENODE:","TEXT (SQLite)"
+"SINGLESCHEMA:","N/A"
+"PROMPT-TEXT:","Fetching Text (SQLite) Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"PREPROCESS_CSV:","No"
+"NOHDRS:","No"
+"CARTESIAN:","No"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"a0.weekdate","weekdate","Y","None","None","Row","c","","csv","SQL->a0.[weekdate]","col1"
+"a0.team","team","Y","None","None","Row","c","","csv","SQL->a0.[team]","col2"
+"f(x)->IFNULL((CASE WHEN a2.[total_lot_count] = '' THEN NULL ELSE CAST (a2.[total_lot_count] AS INTEGER) END),0)","Premerge_Lot_Count","Y","None","None","Row","N","***Premerge_Count","csv","SQL->IFNULL((CASE WHEN a2.[total_lot_count] = '' THEN NULL ELSE CAST (a2.[total_lot_count] AS INTEGER) END),0)","col7"
+"f(x)->IFNULL((CASE WHEN a2.[total_bundle_count] = '' THEN NULL ELSE CAST (a2.[total_bundle_count] AS INTEGER) END),0)","Premerge_Bundle_Count","Y","None","None","Row","N","***","","SQL->IFNULL((CASE WHEN a2.[total_bundle_count] = '' THEN NULL ELSE CAST (a2.[total_bundle_count] AS INTEGER) END),0)","col32"
+"f(x)->Premerge_Goal","Premerge_Goal","N","None","None","Row","n","Premerge_Goal","csv","SQL->CASE WHEN a2.[goal] = '' THEN NULL ELSE CAST (a2.[goal] AS INTEGER) END","col18"
+"f(x)->{premerge_count}  -  {premerge_goal}","Premerge_Lot_Delta","N","None","None","Row","N","***","@if@1","SQL->{col7}  -  {col18}","col19"
+"f(x)->{smalllotflag_1} +   {msmalllotflag_1}","Small_Kitting_Lot_Count","Y","None","None","Row","N","***","@if@1","SQL->{col41} +   {col44}","col10"
+"f(x)->{smalllot_bundle_flag} + {msmalllot_bundle_flag}","Small_Kitting_Bundle_Count","Y","None","None","Row","N","***","@if@1","SQL->{col42} + {col43}","col51"
+"f(x)->CASE WHEN  {save_bin_lot_count1} is null  THEN 0 ELSE  {save_bin_lot_count1} END","Save_Bin_Lot_Count","Y","None","None","Row","N","***","@if@1","SQL->CASE WHEN  {col45} is null  THEN 0 ELSE  {col45} END","col55"
+"f(x)->childlot","Save_Bin_Lot_Count1","N","None","None","Row","n","childlot","csv","SQL->CASE WHEN a3.[childlot] = '' THEN NULL ELSE CAST (a3.[childlot] AS INTEGER) END","col45"
+"f(x)->childlot_bundle","Save_Bin_Bundle_Count1","N","None","None","Row","n","childlot_bundle","csv","SQL->CASE WHEN a3.[childlot_bundle] = '' THEN NULL ELSE CAST (a3.[childlot_bundle] AS INTEGER) END","col46"
+"f(x)->CASE WHEN  {save_bin_bundle_count1} is null   THEN 0 ELSE  {save_bin_bundle_count1} END","Save_Bin_Bundle_Count","Y","None","None","Row","N","***","@if@1","SQL->CASE WHEN  {col46} is null   THEN 0 ELSE  {col46} END","col56"
+"f(x)->{premerge_lot_count}   +  {small_kitting_lot_count} +    {save_bin_lot_count}","Total_Small_Lot_Count","Y","None","None","Row","N","***","@if@2","SQL->{col7}   +  {col10} +    {col55}","col11"
+"f(x)->{premerge_bundle_count} +    {small_kitting_bundle_count} +     {save_bin_bundle_count}","Total_Small_Bundle_Count","Y","None","None","Row","N","***","@if@2","SQL->{col32} +    {col51} +     {col56}","col47"
+"f(x)->450","Goal","N","None","None","Row","N","***","","SQL->450","col12"
+"f(x)->{total_small_lot_count}- {goal}","Lot_Delta","N","None","None","Row","N","***","@if@3","SQL->{col11}- {col12}","col13"
+"a1.weekdate","weekdate_1","N","None","None","Row","c","","csv","SQL->a1.[weekdate]","col4"
+"a1.team","team_1","N","None","None","Row","c","","csv","SQL->a1.[team]","col5"
+"a2.weekdate","weekdate_2","N","None","None","Row","c","","csv","SQL->a2.[weekdate]","col8"
+"a2.team","team_2","N","None","None","Row","c","","csv","SQL->a2.[team]","col9"
+"a3.weekdate","weekdate_3","N","None","None","Row","c","","csv","SQL->a3.[weekdate]","col14"
+"a3.team","team_3","N","None","None","Row","c","","csv","SQL->a3.[team]","col16"
+"f(x)->Datetime('now','localtime')","current_time","Y","None","None","Row","H","***","","SQL->Datetime('now','localtime')","col29"
+"f(x)->total_bundle_count","total_bundle_count","N","None","None","Row","f","total_bundle_count","csv","SQL->CASE WHEN a2.[total_bundle_count] = '' THEN NULL ELSE CAST (a2.[total_bundle_count] AS REAL) END","col31"
+"f(x)->smalllotflag_1","smalllotflag_1","N","None","None","Row","n","smalllotflag_1","csv","SQL->CASE WHEN a0.[smalllotflag] = '' THEN NULL ELSE CAST (a0.[smalllotflag] AS INTEGER) END","col41"
+"f(x)->smalllot_bundle_flag","smalllot_bundle_flag","N","None","None","Row","n","smalllot_bundle_flag","csv","SQL->CASE WHEN a0.[smalllot_bundle_flag] = '' THEN NULL ELSE CAST (a0.[smalllot_bundle_flag] AS INTEGER) END","col42"
+"f(x)->msmalllot_bundle_flag","msmalllot_bundle_flag","N","None","None","Row","n","msmalllot_bundle_flag","csv","SQL->CASE WHEN a1.[msmalllot_bundle_flag] = '' THEN NULL ELSE CAST (a1.[msmalllot_bundle_flag] AS INTEGER) END","col43"
+"f(x)->msmalllotflag_1","msmalllotflag_1","N","None","None","Row","n","msmalllotflag_1","csv","SQL->CASE WHEN a1.[msmalllotflag] = '' THEN NULL ELSE CAST (a1.[msmalllotflag] AS INTEGER) END","col44"
+"f(x)->met_pack","met_pack","Y","None","None","Row","n","met_pack","csv","SQL->CASE WHEN a4.[met_pack] = '' THEN NULL ELSE CAST (a4.[met_pack] AS INTEGER) END","col52"
+"f(x)->all_unpack","Bundle_unpack","Y","None","None","Row","n","all_unpack","csv","SQL->CASE WHEN CASE WHEN a5.[all_unpack] = '' THEN NULL ELSE CAST (a5.[all_unpack] AS INTEGER) END = '' THEN NULL ELSE CAST (CASE WHEN a5.[all_unpack] = '' THEN NULL ELSE CAST (a5.[all_unpack] AS INTEGER) END AS INTEGER) END","col49"
+"a4.lot","lot","P","None","None","Row","c","","csv","SQL->a4.[lot]","col53"
+"a5.lot","lot_1","P","None","None","Row","c","","csv","SQL->a5.[lot]","col54"
+"a4.yy_ww","yy_ww","Y","None","None","Row","c","","csv","SQL->a4.[yy_ww]","col57"
+"a5.yy_ww","yy_ww_1","Y","None","None","Row","c","","csv","SQL->a5.[yy_ww]","col58"
+"JOINGRID:"
+"","","Sqlite->a0.weekdate                                                                                                    : SQL->{col1}","=","Sqlite->a1.weekdate                                                                                                    : SQL->{col4}",""
+"","","Sqlite->a0.weekdate                                                                                                    : SQL->{col1}","=","Sqlite->a2.weekdate                                                                                                    : SQL->{col8}",""
+"","","Sqlite->a0.weekdate                                                                                                    : SQL->{col1}","=","Sqlite->a3.weekdate                                                                                                    : SQL->{col14}",""
+"","","Sqlite->a0.weekdate                                                                                                    : SQL->{col1}","=","Sqlite->a4.yy_ww                                                                                                    : SQL->{col57}",""
+"","","Sqlite->a0.weekdate                                                                                                    : SQL->{col1}","=","Sqlite->a5.yy_ww                                                                                                    : SQL->{col58}",""
+"FILTERGRID:"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/END_EMBED
+/EMBED=VG2;UNPACK His
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","No"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","No"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:",""
+"EXCEL:","UNPACK.csv"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","N"
+"QUERYROWS:","19"
+"JOINROWS:","1"
+"FILTERROWS:","2"
+"COL_ID_COUNTER:","45"
+"CHART_COUNTER:","0"
+"PIVOTMODE:","0"
+"JOINHADOOP:","0"
+"SQLITESPECIALHDRS:","1"
+"LEGACYPIVOTHDRS:","0"
+"USEPYENGINE:","Y"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","2:0:a0"
+"TABLEGRID:","1"
+"","F_Lot_History_v3",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","Oracle"
+"SINGLENODE:","Default"
+"SINGLESCHEMA:","Default"
+"PROMPT-TEXT:","Fetching MARS Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"FIRST_ROWS:","No"
+"ORDERED:","No"
+"OTHER-HINT:","No"
+"<---- New Query ---->","1:5:SQL"
+"TABLEGRID:","1"
+"","bundlesize.tab a1",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","SQLite"
+"SINGLENODE:","TEXT (SQLite)"
+"SINGLESCHEMA:","N/A"
+"PROMPT-TEXT:","Fetching Text (SQLite) Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"PREPROCESS_CSV:","No"
+"NOHDRS:","No"
+"CARTESIAN:","No"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"a0.lot","lot","Y","None","None","Row","c","Identifies a batch of wafers or units being processed in the factory.The basic format of the Lot number is: ?FYWWNNNN where F=fab code, Y=year, WW=workweek, NNNN= sequence, with the 9th or 10th characters as alphanumeric. In Fab, Etest and Sort, a quantity that has a wafer as an unit of measure and the physical form that passes through the factory. A lot starting the Fab process contains up to 25 wafers and can be split into child lots of varying sizes, and wafer losses can also occur. New lots are also created to split lots due to varying characteristics, such as speed or rework, for a portion of the lot. In some 200mm fabs production lots, the lot number uses a silicon vendor ID in the 8th character","f_lothist","a0->f0.lot","col14"
+"a0.operation","MainRoute_opr","Y","None","None","Row","c","Identifies a manufacturing process step or a holding point","f_lothist","a0->f0.operation","col15"
+"a0.prevout_date","prevout_date","Y","None","None","Row","d","The date and time the lot arrived at or was created at the current operation. This is typically the date and time the lot was moved out of the previous operation.","f_lothist","a0->f0.prevout_date","col16"
+"a0.product","product","Y","None","None","Row","c","A name that completely describes the product. It comprises package, device, revision, stepping, ROM designator, engineering identifier, Fab identifier, ROM code, Assembly identifier and speed. FOR FSM:P Device R SRE FCodeA Where:P = Product type (blank for production, TW for test wafer, RE, ME, FE, and BE for engineering products RECL, MECL, FECL, and BECM)Device = Device name given from corporateR = Product RevisionS = StepR = Always blankE = Engineering codeF = Fab codeCode = A = Route name the product will run on plus any unique route extension number to make the product uniqueFOR ATM:PPDevice ?R ?SIEEFCCCCATTTTPWhere:P = Mfg PackageDevice = Device name R = RevisionS = StepI = Rom IDEE = Engineering IDF = FAB IDCCCC = Spec NumberA = Assembly IDTTTT = Test Type","f_lothist","a0->f0.product","col17"
+"a0.route","route","Y","None","None","Row","c","An identifier for a sequence of operations in a WorkStream facility. ?This contains full route names, including snippet routes. ?Views are used to view only the base route name (first 10 characters). ?Snippet routes have _SNIP_ starting in the 11th character and followed by the lotplan name. ?For Engring use primarily. ?A sample general route name is as follows: FL64.0ABCD, ?where FL = Route Type, 64 is the process, .0 is the dot process, and ABCD is a four character extension. A sample Test Wafer route name is: ?TWLC64.001, where TW is the Test Wafer Route type (in this case just Test Wafer as opposed to say Regen), L indicates Litho, C indicates Copper, 64 indicates the process, and 001 is a 3 character extension.","f_lothist","a0->f0.route","col18"
+"a0.queue_time","queue_time","Y","None","None","Row","f","The queue time for the lot at the operation in hours. I.e., In_Date - PrevOut_Date","f_lothist","a0->Round((f0.In_date - f0.prevout_date) * 24,2)","col19"
+"a0.stores_flag","stores_flag","Y","None","None","Row","c","Stores Y if this data is for a row when the lot was in Stores and N otherwise","f_operation","a0->f1.stores","col20"
+"a0.in_date","in_date","Y","None","None","Row","d","The date and time the lot was moved into the operation using the MVIN transaction. Equals zero (0) if th elot was not moved in.","f_lothist","a0->f0.in_date","col21"
+"a0.out_date","out_date","Y","None","None","Row","d","The date the lot moved out of the operation. If the lot has not moved out, the value will be NULL. This column is used in date indices instead of Last_Action_Date as Last_Action_Date changes for every transaction for the lot at the operation.","f_lothist","a0->f0.out_date","col22"
+"a0.movedout_txn","movedout_txn","Y","None","None","Row","c","The transaction used to move the lot out of the operation. May want to filter where this transaction is equal to MVOU. Will equal to space if the lot is still at the operation. Sample Move out transactions include: MVOU - Move out ?was done; ?Transfer to Stores (TRST); Ship lot (SHLT); Rework lot (RWLT), 5: Non standard Move (MVNS); ?A lot was adjusted to be at another operation (ADLT);7Transfer Lot (TFLT), SPLT - Split a lot and leave the parent lot with zero quantity","f_lothist","a0->f0.movedout_txn","col23"
+"f(a0)->LAG (  {mainroute_opr} ,1,NULL) OVER (PARTITION BY  {lot}  ORDER BY  {prevout_date}  ASC)","preroute","Y","None","None","Row","C","***","f_lothist","a0->LAG (  {col15} ,1,NULL) OVER (PARTITION BY  {col14}  ORDER BY  {col16}  ASC)","col26"
+"f(a0)->{preroute}  ||  {movedout_txn}","t_f","Y","None","None","Row","C","***","@if@1","a0->{col26}  ||  {col23}","col27"
+"a0.oldqty1","oldqty1","Y","None","None","Row","n","The quantity of original units in the lot after the last transaction was executed for the lot at the operation. ?Ultimately, it will equal the number of wafers (or units) in the lot to use when computing yield. Equals Out quantity + losses. ?In MES300, on the lot move out, this column should be set to equal newqty1 + lossqty1. That is because losses could be taken at any point while the lot is at the operation. Hence no losses may occur on the move out transaction but there were losses while the lot was at the operation.","f_lothist","a0->f0.oldqty1","col32"
+"a0.prodgroup3","prodgroup3","Y","None","None","Row","c","Product Classification column.","f_product","a0->p.prodgroup3","col34"
+"a1.prod","prod","Y","None","None","Row","c","","csv","SQL->a1.[prod]","col35"
+"f(x)->bundle size","bundle size","Y","None","None","Row","f","bundle size","csv","SQL->CASE WHEN a1.[bundle size] = '' THEN NULL ELSE CAST (a1.[bundle size] AS REAL) END","col36"
+"f(a0)->{oldqty1}","qty","Y","None","None","Row","F","***","f_lothist","a0->{col32}","col38"
+"f(x)->CEIL( {qty} / {bundle size})","buddle","Y","None","None","Row","F","***","@if@1","All->CEIL( {col38} / {col36})","col37"
+"f(a0)->'ALL'","all_","Y","None","None","Row","C","***","@if@1","a0->'ALL'","col42"
+"JOINGRID:"
+"","","View->a0.prodgroup3                                                                                                    : a0->{col34}","=","Sqlite->a1.prod                                                                                                    : SQL->{col35}",""
+"FILTERGRID:"
+"AND","","a0.lot","In Group",".\699_raw1.csv:1","",".","c","f_lothist","a0->f0.lot",""
+"AND","","f(a0)->{t_f}","Like","'7904%'","","","cx","@IF@2","a0->{col27}",""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/END_EMBED
+/EMBED=VG2;upack
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","Yes"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","No"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:",""
+"EXCEL:","mainrouteopr1.csv"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","N"
+"QUERYROWS:","19"
+"JOINROWS:","1"
+"FILTERROWS:","3"
+"COL_ID_COUNTER:","45"
+"CHART_COUNTER:","0"
+"PIVOTMODE:","0"
+"JOINHADOOP:","0"
+"SQLITESPECIALHDRS:","1"
+"LEGACYPIVOTHDRS:","0"
+"USEPYENGINE:","Y"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","2:0:a0"
+"TABLEGRID:","1"
+"","F_Lot_History_v3",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","Oracle"
+"SINGLENODE:","Default"
+"SINGLESCHEMA:","Default"
+"PROMPT-TEXT:","Fetching MARS Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"FIRST_ROWS:","No"
+"ORDERED:","No"
+"OTHER-HINT:","No"
+"<---- New Query ---->","1:5:SQL"
+"TABLEGRID:","1"
+"","bundlesize.tab a1",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","SQLite"
+"SINGLENODE:","TEXT (SQLite)"
+"SINGLESCHEMA:","N/A"
+"PROMPT-TEXT:","Fetching Text (SQLite) Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"PREPROCESS_CSV:","No"
+"NOHDRS:","No"
+"CARTESIAN:","No"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"a0.lot","lot","Y","None","None","Row","c","Identifies a batch of wafers or units being processed in the factory.The basic format of the Lot number is: ?FYWWNNNN where F=fab code, Y=year, WW=workweek, NNNN= sequence, with the 9th or 10th characters as alphanumeric. In Fab, Etest and Sort, a quantity that has a wafer as an unit of measure and the physical form that passes through the factory. A lot starting the Fab process contains up to 25 wafers and can be split into child lots of varying sizes, and wafer losses can also occur. New lots are also created to split lots due to varying characteristics, such as speed or rework, for a portion of the lot. In some 200mm fabs production lots, the lot number uses a silicon vendor ID in the 8th character","f_lothist","a0->f0.lot","col14"
+"a0.operation","MainRoute_opr","Y","None","None","Row","c","Identifies a manufacturing process step or a holding point","f_lothist","a0->f0.operation","col15"
+"a0.prevout_date","prevout_date","Y","None","None","Row","d","The date and time the lot arrived at or was created at the current operation. This is typically the date and time the lot was moved out of the previous operation.","f_lothist","a0->f0.prevout_date","col16"
+"a0.product","product","Y","None","None","Row","c","A name that completely describes the product. It comprises package, device, revision, stepping, ROM designator, engineering identifier, Fab identifier, ROM code, Assembly identifier and speed. FOR FSM:P Device R SRE FCodeA Where:P = Product type (blank for production, TW for test wafer, RE, ME, FE, and BE for engineering products RECL, MECL, FECL, and BECM)Device = Device name given from corporateR = Product RevisionS = StepR = Always blankE = Engineering codeF = Fab codeCode = A = Route name the product will run on plus any unique route extension number to make the product uniqueFOR ATM:PPDevice ?R ?SIEEFCCCCATTTTPWhere:P = Mfg PackageDevice = Device name R = RevisionS = StepI = Rom IDEE = Engineering IDF = FAB IDCCCC = Spec NumberA = Assembly IDTTTT = Test Type","f_lothist","a0->f0.product","col17"
+"a0.route","route","Y","None","None","Row","c","An identifier for a sequence of operations in a WorkStream facility. ?This contains full route names, including snippet routes. ?Views are used to view only the base route name (first 10 characters). ?Snippet routes have _SNIP_ starting in the 11th character and followed by the lotplan name. ?For Engring use primarily. ?A sample general route name is as follows: FL64.0ABCD, ?where FL = Route Type, 64 is the process, .0 is the dot process, and ABCD is a four character extension. A sample Test Wafer route name is: ?TWLC64.001, where TW is the Test Wafer Route type (in this case just Test Wafer as opposed to say Regen), L indicates Litho, C indicates Copper, 64 indicates the process, and 001 is a 3 character extension.","f_lothist","a0->f0.route","col18"
+"a0.queue_time","queue_time","Y","None","None","Row","f","The queue time for the lot at the operation in hours. I.e., In_Date - PrevOut_Date","f_lothist","a0->Round((f0.In_date - f0.prevout_date) * 24,2)","col19"
+"a0.stores_flag","stores_flag","Y","None","None","Row","c","Stores Y if this data is for a row when the lot was in Stores and N otherwise","f_operation","a0->f1.stores","col20"
+"a0.in_date","in_date","Y","None","None","Row","d","The date and time the lot was moved into the operation using the MVIN transaction. Equals zero (0) if th elot was not moved in.","f_lothist","a0->f0.in_date","col21"
+"a0.out_date","out_date","Y","None","None","Row","d","The date the lot moved out of the operation. If the lot has not moved out, the value will be NULL. This column is used in date indices instead of Last_Action_Date as Last_Action_Date changes for every transaction for the lot at the operation.","f_lothist","a0->f0.out_date","col22"
+"a0.movedout_txn","movedout_txn","Y","None","None","Row","c","The transaction used to move the lot out of the operation. May want to filter where this transaction is equal to MVOU. Will equal to space if the lot is still at the operation. Sample Move out transactions include: MVOU - Move out ?was done; ?Transfer to Stores (TRST); Ship lot (SHLT); Rework lot (RWLT), 5: Non standard Move (MVNS); ?A lot was adjusted to be at another operation (ADLT);7Transfer Lot (TFLT), SPLT - Split a lot and leave the parent lot with zero quantity","f_lothist","a0->f0.movedout_txn","col23"
+"f(a0)->LEAD (  {mainroute_opr} ,1,NULL) OVER (PARTITION BY  {lot}  ORDER BY  {prevout_date}  ASC)","preroute","Y","None","None","Row","C","***","f_lothist","a0->LEAD (  {col15} ,1,NULL) OVER (PARTITION BY  {col14}  ORDER BY  {col16}  ASC)","col26"
+"f(a0)->{preroute}  ||  {movedout_txn}","t_f","Y","None","None","Row","C","***","@if@1","a0->{col26}  ||  {col23}","col27"
+"a0.oldqty1","oldqty1","Y","None","None","Row","n","The quantity of original units in the lot after the last transaction was executed for the lot at the operation. ?Ultimately, it will equal the number of wafers (or units) in the lot to use when computing yield. Equals Out quantity + losses. ?In MES300, on the lot move out, this column should be set to equal newqty1 + lossqty1. That is because losses could be taken at any point while the lot is at the operation. Hence no losses may occur on the move out transaction but there were losses while the lot was at the operation.","f_lothist","a0->f0.oldqty1","col32"
+"a0.prodgroup3","prodgroup3","Y","None","None","Row","c","Product Classification column.","f_product","a0->p.prodgroup3","col34"
+"a1.prod","prod","Y","None","None","Row","c","","csv","SQL->a1.[prod]","col35"
+"f(x)->bundle size","bundle size","Y","None","None","Row","f","bundle size","csv","SQL->CASE WHEN a1.[bundle size] = '' THEN NULL ELSE CAST (a1.[bundle size] AS REAL) END","col36"
+"f(a0)->{oldqty1}","qty","Y","None","None","Row","F","***","f_lothist","a0->{col32}","col38"
+"f(x)->CEIL( {qty} / {bundle size})","buddle","Y","None","None","Row","F","***","@if@1","All->CEIL( {col38} / {col36})","col37"
+"f(a0)->'ALL'","all_","Y","None","None","Row","C","***","@if@1","a0->'ALL'","col42"
+"JOINGRID:"
+"","","View->a0.prodgroup3                                                                                                    : a0->{col34}","=","Sqlite->a1.prod                                                                                                    : SQL->{col35}",""
+"FILTERGRID:"
+"AND","","a0.lot","In Group",".\699_raw.csv:1. LOT","",".","c","f_lothist","a0->f0.lot",""
+"AND","","f(a0)->{t_f}","=","'7063RWLT'","","","cx","@IF@2","a0->{col27}",""
+"-- AND","","a0.operation","In","'7290'</comma\>'7200'</comma\>'3700'","","","c","f_lothist","a0->f0.operation",""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/END_EMBED
+/EMBED=VG2;1
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","No"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","No"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:",""
+"EXCEL:","mainrouteopr2.csv"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","N"
+"QUERYROWS:","21"
+"JOINROWS:","1"
+"FILTERROWS:","3"
+"COL_ID_COUNTER:","28"
+"CHART_COUNTER:","0"
+"PIVOTMODE:","0"
+"JOINHADOOP:","0"
+"SQLITESPECIALHDRS:","1"
+"LEGACYPIVOTHDRS:","0"
+"USEPYENGINE:","Y"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","1:5:SQL"
+"TABLEGRID:","2"
+"","mainrouteopr1.csv a0",""
+"","699_raw.csv a1",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","SQLite"
+"SINGLENODE:","TEXT (SQLite)"
+"SINGLESCHEMA:","N/A"
+"PROMPT-TEXT:","Fetching Text (SQLite) Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"PREPROCESS_CSV:","No"
+"NOHDRS:","No"
+"CARTESIAN:","No"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"a0.lot","lot","Y","None","None","Row","c","","csv","SQL->a0.[lot]","col1"
+"a0.mainroute_opr","mainroute_opr","Y","None","None","Row","c","","csv","SQL->a0.[mainroute_opr]","col2"
+"f(x)->prevout_date","prevout_date","Y","None","None","Row","d","prevout_date","csv","SQL->CASE WHEN a0.[prevout_date] = '' THEN NULL ELSE CAST (a0.[prevout_date] AS TEXT) END","col3"
+"a0.product","product","Y","None","None","Row","c","","csv","SQL->a0.[product]","col4"
+"a0.route","route","Y","None","None","Row","c","","csv","SQL->a0.[route]","col5"
+"a0.queue_time","queue_time","Y","None","None","Row","c","","csv","SQL->a0.[queue_time]","col6"
+"a0.stores_flag","stores_flag","Y","None","None","Row","c","","csv","SQL->a0.[stores_flag]","col7"
+"a0.in_date","in_date","Y","None","None","Row","c","","csv","SQL->a0.[in_date]","col8"
+"a0.out_date","out_date","Y","None","None","Row","c","","csv","SQL->a0.[out_date]","col9"
+"a0.movedout_txn","movedout_txn","Y","None","None","Row","c","","csv","SQL->a0.[movedout_txn]","col10"
+"a0.preroute","preroute","Y","None","None","Row","c","","csv","SQL->a0.[preroute]","col11"
+"a0.t_f","t_f","Y","None","None","Row","c","","csv","SQL->a0.[t_f]","col12"
+"f(x)->MAX ( {prevout_date} ) OVER (PARTITION BY  {lot}  )","maxtime","Y","None","None","Row","C","***","csv","SQL->MAX ( {col3} ) OVER (PARTITION BY  {col1}  )","col13"
+"f(x)->CASE WHEN  {prevout_date} = {maxtime}  THEN '1' ELSE '0' END","FDt_f","Y","None","None","Row","C","***","@if@1","SQL->CASE WHEN  {col3} = {col13}  THEN '1' ELSE '0' END","col14"
+"f(x)->bundle size","bundle size","Y","None","None","Row","f","bundle size","csv","SQL->CASE WHEN a0.[bundle size] = '' THEN NULL ELSE CAST (a0.[bundle size] AS REAL) END","col15"
+"f(x)->qty","qty","Y","None","None","Row","f","qty","csv","SQL->CASE WHEN a0.[qty] = '' THEN NULL ELSE CAST (a0.[qty] AS REAL) END","col16"
+"a0.all_","all_","Y","None","None","Row","c","","csv","SQL->a0.[all_]","col17"
+"f(x)->buddle","buddle","Y","None","None","Row","f","buddle","csv","SQL->CASE WHEN a0.[buddle] = '' THEN NULL ELSE CAST (a0.[buddle] AS REAL) END","col19"
+"a1.lot","lot_1","Y","None","None","Row","c","","csv","SQL->a1.[lot]","col26"
+"a1.yy_ww","yy_ww","Y","None","None","Row","c","","csv","SQL->a1.[yy_ww]","col27"
+"f(x)->SUM ( {buddle} ) OVER (PARTITION BY    {yy_ww} )","met_pack","Y","None","None","Row","F","***","@if@1","SQL->SUM ( {col19} ) OVER (PARTITION BY    {col27} )","col28"
+"JOINGRID:"
+"","","Sqlite->a0.lot                                                                                                    : SQL->{col1}","=","Sqlite->a1.lot                                                                                                    : SQL->{col26}",""
+"FILTERGRID:"
+"AND","","f(x)->{fdt_f}","=","'1'","","","cx","@IF@2","SQL->{col14}",""
+"AND","","f(x)->prevout_date",">=","","","","d","csv","SQL->CASE WHEN a0.[prevout_date] = '' THEN NULL ELSE CAST (a0.[prevout_date] AS TEXT) END",""
+"AND","","a0.mainroute_opr","In","'7290'</comma\>'3700'</comma\>'7200'","","","c","csv","SQL->a0.[mainroute_opr]",""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/END_EMBED
+/EMBED=VG2;unpack
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","No"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","No"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:",""
+"EXCEL:","unpack1.csv"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","N"
+"QUERYROWS:","21"
+"JOINROWS:","1"
+"FILTERROWS:","2"
+"COL_ID_COUNTER:","28"
+"CHART_COUNTER:","0"
+"PIVOTMODE:","0"
+"JOINHADOOP:","0"
+"SQLITESPECIALHDRS:","1"
+"LEGACYPIVOTHDRS:","0"
+"USEPYENGINE:","Y"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","1:5:SQL"
+"TABLEGRID:","2"
+"","UNPACK.csv a0",""
+"","699_raw1.csv a1",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","SQLite"
+"SINGLENODE:","TEXT (SQLite)"
+"SINGLESCHEMA:","N/A"
+"PROMPT-TEXT:","Fetching Text (SQLite) Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"PREPROCESS_CSV:","No"
+"NOHDRS:","No"
+"CARTESIAN:","No"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"a0.lot","lot","Y","None","None","Row","c","","csv","SQL->a0.[lot]","col1"
+"a0.mainroute_opr","mainroute_opr","Y","None","None","Row","c","","csv","SQL->a0.[mainroute_opr]","col2"
+"f(x)->prevout_date","prevout_date","Y","None","None","Row","d","prevout_date","csv","SQL->CASE WHEN a0.[prevout_date] = '' THEN NULL ELSE CAST (a0.[prevout_date] AS TEXT) END","col3"
+"a0.product","product","Y","None","None","Row","c","","csv","SQL->a0.[product]","col4"
+"a0.route","route","Y","None","None","Row","c","","csv","SQL->a0.[route]","col5"
+"a0.queue_time","queue_time","Y","None","None","Row","c","","csv","SQL->a0.[queue_time]","col6"
+"a0.stores_flag","stores_flag","Y","None","None","Row","c","","csv","SQL->a0.[stores_flag]","col7"
+"a0.in_date","in_date","Y","None","None","Row","c","","csv","SQL->a0.[in_date]","col8"
+"a0.out_date","out_date","Y","None","None","Row","c","","csv","SQL->a0.[out_date]","col9"
+"a0.movedout_txn","movedout_txn","Y","None","None","Row","c","","csv","SQL->a0.[movedout_txn]","col10"
+"a0.preroute","preroute","Y","None","None","Row","c","","csv","SQL->a0.[preroute]","col11"
+"a0.t_f","t_f","Y","None","None","Row","c","","csv","SQL->a0.[t_f]","col12"
+"f(x)->MAX ( {prevout_date} ) OVER (PARTITION BY  {lot}  )","maxtime","Y","None","None","Row","C","***","csv","SQL->MAX ( {col3} ) OVER (PARTITION BY  {col1}  )","col13"
+"f(x)->CASE WHEN  {prevout_date} = {maxtime}  THEN '1' ELSE '0' END","FDt_f","Y","None","None","Row","C","***","@if@1","SQL->CASE WHEN  {col3} = {col13}  THEN '1' ELSE '0' END","col14"
+"f(x)->bundle size","bundle size","Y","None","None","Row","f","bundle size","csv","SQL->CASE WHEN a0.[bundle size] = '' THEN NULL ELSE CAST (a0.[bundle size] AS REAL) END","col15"
+"f(x)->qty","qty","Y","None","None","Row","f","qty","csv","SQL->CASE WHEN a0.[qty] = '' THEN NULL ELSE CAST (a0.[qty] AS REAL) END","col16"
+"a0.all_","all_","Y","None","None","Row","c","","csv","SQL->a0.[all_]","col17"
+"f(x)->buddle","buddle","Y","None","None","Row","f","buddle","csv","SQL->CASE WHEN a0.[buddle] = '' THEN NULL ELSE CAST (a0.[buddle] AS REAL) END","col19"
+"a1.yy_ww","yy_ww","Y","None","None","Row","c","","csv","SQL->a1.[yy_ww]","col26"
+"a1.lot","lot_1","Y","None","None","Row","c","","csv","SQL->a1.[lot]","col27"
+"f(x)->SUM ( {buddle} ) OVER (PARTITION BY   {yy_ww} )","all_unpack","Y","None","None","Row","F","***","@if@1","SQL->SUM ( {col19} ) OVER (PARTITION BY   {col26} )","col28"
+"JOINGRID:"
+"","","Sqlite->a0.lot                                                                                                    : SQL->{col1}","=","Sqlite->a1.lot                                                                                                    : SQL->{col27}",""
+"FILTERGRID:"
+"AND","","f(x)->{fdt_f}","=","'1'","","","cx","@IF@2","SQL->{col14}",""
+"AND","","a0.mainroute_opr","In","'7290'</comma\>'3700'</comma\>'7200'","","","c","csv","SQL->a0.[mainroute_opr]",""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/END_EMBED
+/EMBED=VG2;IN SFGI
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","Yes"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","No"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:",""
+"EXCEL:","insfgi1.tab"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","N"
+"QUERYROWS:","22"
+"JOINROWS:","3"
+"FILTERROWS:","8"
+"COL_ID_COUNTER:","33"
+"CHART_COUNTER:","0"
+"PIVOTMODE:","0"
+"JOINHADOOP:","0"
+"SQLITESPECIALHDRS:","1"
+"LEGACYPIVOTHDRS:","0"
+"USEPYENGINE:","Y"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->For-Loop:Y{FOR-LOOP} <~>0<~> <~>30<~> <~>5<~> <~>1<~>"
+"UTILITIESDESC:","For Start to End by Step"
+"<---- New Query ---->","2:0:a0"
+"TABLEGRID:","1"
+"","F_Lot_History_v3",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","Oracle"
+"SINGLENODE:","Default"
+"SINGLESCHEMA:","Default"
+"PROMPT-TEXT:","Fetching MARS Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"FIRST_ROWS:","No"
+"ORDERED:","No"
+"OTHER-HINT:","No"
+"<---- New Query ---->","1:5:SQL"
+"TABLEGRID:","2"
+"","bundlesize.tab a1",""
+"","calendar.tab a2",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","SQLite"
+"SINGLENODE:","TEXT (SQLite)"
+"SINGLESCHEMA:","N/A"
+"PROMPT-TEXT:","Fetching Text (SQLite) Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"PREPROCESS_CSV:","No"
+"NOHDRS:","No"
+"CARTESIAN:","No"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Smart-Append:Y@EXEDIR@\SmartAppend.va <~>insfgi.tab<~> <~>insfgi1.tab<~> <~><~> <~><~> <~><~> <~>N<~> <~>N<~> <~><~> <~>Version 3<~> <~><<<spf-hadoop-server>>><~> <~><~>"
+"UTILITIESDESC:","Smart-Append Data"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->End-Loop:Y{END-LOOP}"
+"UTILITIESDESC:",""
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"a0.prodgroup3","prodgroup3","Y","None","None","Row","c","Product Classification column.","f_product","a0->p.prodgroup3","col7"
+"a0.lot","lot","Y","None","None","Row","c","Identifies a batch of wafers or units being processed in the factory.The basic format of the Lot number is: ?FYWWNNNN where F=fab code, Y=year, WW=workweek, NNNN= sequence, with the 9th or 10th characters as alphanumeric. In Fab, Etest and Sort, a quantity that has a wafer as an unit of measure and the physical form that passes through the factory. A lot starting the Fab process contains up to 25 wafers and can be split into child lots of varying sizes, and wafer losses can also occur. New lots are also created to split lots due to varying characteristics, such as speed or rework, for a portion of the lot. In some 200mm fabs production lots, the lot number uses a silicon vendor ID in the 8th character","f_lothist","a0->f0.lot","col1"
+"a0.operation","operation1","Y","None","None","Row","c","Identifies a manufacturing process step or a holding point","f_lothist","a0->f0.operation","col2"
+"a0.in_date","in_date","Y","None","None","Row","d","The date and time the lot was moved into the operation using the MVIN transaction. Equals zero (0) if th elot was not moved in.","f_lothist","a0->f0.in_date","col3"
+"a0.owner","owner","Y","None","None","Row","c","Identifies the type of lot. E.g., PROD and MW","f_lothist","a0->f0.owner","col4"
+"a0.newqty1","oldqty1","Y","None","None","Row","n","The number of wafers (or units) in the lot aftrer the last transaction was executed. Ultimately, it will equal the quantity of units in the lot when it is moved out of this operation.","f_lothist","a0->f0.newqty1","col33"
+"f(a0)->{newqty1}","qty","Y","None","None","Row","F","***","f_lothist","a0->{col33}","col10"
+"a1.prod","prod","Y","None","None","Row","c","","csv","SQL->a1.[prod]","col8"
+"f(x)->bundle size","bundle size","Y","None","None","Row","f","bundle size","csv","SQL->CASE WHEN a1.[bundle size] = '' THEN NULL ELSE CAST (a1.[bundle size] AS REAL) END","col9"
+"f(x)->CEIL( {qty} / {bundle size} )","buddle","Y","None","None","Row","F","***","@if@1","All->CEIL( {col10} / {col9} )","col11"
+"a0.site_month","site_month","Y","None","None","Row","n","The facility month for the last action date in format yyyymm. E.g.,201106","f_calendar","a0->c0.month","col18"
+"a2.month","month","Y","None","None","Row","c","","csv","SQL->a2.[month]","col19"
+"a2.ww_shift","ww_shift","Y","None","None","Row","c","","csv","SQL->a2.[ww_shift]","col20"
+"a2.calcudf1","calcudf1","Y","None","None","Row","c","","csv","SQL->a2.[calcudf1]","col21"
+"a2.start_date","start_date","Y","None","None","Row","c","","csv","SQL->a2.[start_date]","col22"
+"a2.end_date","end_date","Y","None","None","Row","c","","csv","SQL->a2.[end_date]","col23"
+"f(x)->CASE WHEN     {txn_date} > {start_date} and     {txn_date} < {end_date}   THEN 'Y' ELSE 'N'END","filter","Y","None","None","Row","C","***","f_lottxnhist","All->CASE WHEN     {col31} > {col22} and     {col31} < {col23}   THEN 'Y' ELSE 'N'END","col24"
+"a0.transaction","transaction","Y","None","None","Row","c","A transaction identifier. E.g., HLLT, RLLT","f_lottxnhist","a0->f5.transaction","col27"
+"a0.operation_new","operation","Y","None","None","Row","c","Identifies the new operation for the lot as a result of processing this transaction.","f_lottxnhist","a0->f5.operation_new","col29"
+"a0.next_operation","next_operation","Y","None","None","Row","c","The operation the lot goes to next","f_lothist","a0->(SELECT f99.operation FROM @MARSSCHEMA@F_LotHist f99 WHERE f99.lot = f0.lot AND f99.prevout_date = f0.out_date AND rownum <= 1)","col30"
+"a0.txn_date","txn_date","Y","None","None","Row","d","The date and time a transaction occurred.","f_lottxnhist","a0->f5.txn_date","col31"
+"f(a0)->{operation}  ||  {transaction}","name","Y","None","None","Row","C","***","f_lottxnhist","a0->{col2}  ||  {col27}","col32"
+"JOINGRID:"
+"AND","","View->a0.prodgroup3                                                                                                    : a0->{col7}","=","Sqlite->a1.prod                                                                                                    : SQL->{col8}",""
+"","","Sqlite->a1.prod                                                                                                    : SQL->{col8}","<>","Sqlite->a2.ww_shift                                                                                                    : SQL->{col20}",""
+"","","View->a0.site_month                                                                                                    : a0->{col18}","=","Sqlite->a2.month                                                                                                    : SQL->{col19}",""
+"FILTERGRID:"
+"AND","","a0.operation","In","'7571'</comma\>'7454'","","","c","f_lothist","a0->f0.operation",""
+"AND","","a0.txn_date","Between","@spf-for-loop-start-oracle-1@","",".","d","f_lottxnhist","a0->f5.txn_date","@spf-for-loop-end-oracle-1@"
+"AND","","a0.owner","In","'PROD'</comma\>'ENG'","","","c","f_lothist","a0->f0.owner",""
+"AND","","a0.lot","Is Not Null","","",".","c","f_lothist","a0->f0.lot",""
+"AND","","f(x)->{filter}","=","'Y'","","","cx","@IF@1","All->{col24}",""
+"AND","","f(a0)->{name}","In","'7454TRST'</comma\>'7571RWLT'</comma\>'7571MVOU'","","","cx","@IF@1","a0->{col32}",""
+"AND","","a0.operation_new","In","'7200'</comma\>'7290'</comma\>'3700'","","","c","f_lottxnhist","a0->f5.operation_new",""
+"AND","","a0.newqty1",">","0","","","n","f_lothist","a0->f0.newqty1",""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/END_EMBED
+/EMBED=VG2;Unpack_0
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","No"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","No"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:","9021 PackWip\9021.exe"
+"EXCEL:","699_raw1.csv"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","N"
+"QUERYROWS:","8"
+"JOINROWS:","2"
+"FILTERROWS:","3"
+"COL_ID_COUNTER:","22"
+"CHART_COUNTER:","4"
+"PIVOTMODE:","0"
+"JOINHADOOP:","0"
+"SQLITESPECIALHDRS:","1"
+"LEGACYPIVOTHDRS:","0"
+"USEPYENGINE:","Y"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","2:0:a0"
+"TABLEGRID:","1"
+"","F_Lot_History_v3",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","Oracle"
+"SINGLENODE:","Default"
+"SINGLESCHEMA:","Default"
+"PROMPT-TEXT:","Fetching MARS Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"FIRST_ROWS:","No"
+"ORDERED:","No"
+"OTHER-HINT:","No"
+"<---- New Query ---->","1:5:SQL"
+"TABLEGRID:","1"
+"","calendar.tab a1",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","SQLite"
+"SINGLENODE:","TEXT (SQLite)"
+"SINGLESCHEMA:","N/A"
+"PROMPT-TEXT:","Fetching Text (SQLite) Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"PREPROCESS_CSV:","No"
+"NOHDRS:","No"
+"CARTESIAN:","No"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"a0.lot","lot","Y","None","None","Row","c","Identifies a batch of wafers or units being processed in the factory.The basic format of the Lot number is: ?FYWWNNNN where F=fab code, Y=year, WW=workweek, NNNN= sequence, with the 9th or 10th characters as alphanumeric. In Fab, Etest and Sort, a quantity that has a wafer as an unit of measure and the physical form that passes through the factory. A lot starting the Fab process contains up to 25 wafers and can be split into child lots of varying sizes, and wafer losses can also occur. New lots are also created to split lots due to varying characteristics, such as speed or rework, for a portion of the lot. In some 200mm fabs production lots, the lot number uses a silicon vendor ID in the 8th character","f_lothist","a0->f0.lot","col15"
+"a0.operation","operation","Y","None","None","Row","c","Identifies a manufacturing process step or a holding point","f_lothist","a0->f0.operation","col16"
+"a0.prevout_date","prevout_date","Y","None","None","Row","d","The date and time the lot arrived at or was created at the current operation. This is typically the date and time the lot was moved out of the previous operation.","f_lothist","a0->f0.prevout_date","col17"
+"a0.owner","owner","Y","None","None","Row","c","Identifies the type of lot. E.g., PROD and MW","f_lothist","a0->f0.owner","col18"
+"a0.newqty1","newqty1","Y","None","None","Row","n","The number of wafers (or units) in the lot aftrer the last transaction was executed. Ultimately, it will equal the quantity of units in the lot when it is moved out of this operation.","f_lothist","a0->f0.newqty1","col19"
+"f(x)->start_date","start_date","Y","None","None","Row","d","start_date","csv","SQL->CASE WHEN a1.[start_date] = '' THEN NULL ELSE CAST (a1.[start_date] AS TEXT) END","col20"
+"f(x)->end_date","end_date","Y","None","None","Row","d","end_date","csv","SQL->CASE WHEN a1.[end_date] = '' THEN NULL ELSE CAST (a1.[end_date] AS TEXT) END","col21"
+"a1.yy_ww","yy_ww","Y","None","None","Row","c","","csv","SQL->a1.[yy_ww]","col22"
+"JOINGRID:"
+"","","View->a0.prevout_date                                                                                                    : a0->{col17}",">=","Sqlite->f(x)->start_date                                                                                                    : SQL->{col20}",""
+"","","View->a0.prevout_date                                                                                                    : a0->{col17}","<","Sqlite->f(x)->end_date                                                                                                    : SQL->{col21}",""
+"FILTERGRID:"
+"AND","","a0.operation","=","'7904'","","","c","f_lothist","a0->f0.operation",""
+"AND","","a0.prevout_date",">=","(TRUNC(SYSDATE) -40 + ((12+7)/24))","",".","d","f_lothist","a0->f0.prevout_date",""
+"AND","","a0.owner","In","'PROD'</comma\>'ENG'</comma\>'RSCN'","","","c","f_lothist","a0->f0.owner",""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/END_EMBED
+/EMBED=VG2;1_0
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","Yes"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","No"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:",""
+"EXCEL:","in_sfgi_final.tab"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","N"
+"QUERYROWS:","16"
+"JOINROWS:","4"
+"FILTERROWS:","0"
+"COL_ID_COUNTER:","24"
+"CHART_COUNTER:","0"
+"PIVOTMODE:","0"
+"SQLITESPECIALHDRS:","1"
+"LEGACYPIVOTHDRS:","0"
+"USEPYENGINE:","Y"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","1:5:SQL"
+"TABLEGRID:","2"
+"","insfgi_f.tab a0",""
+"","smalllotjoindata.tab a1",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","SQLite"
+"SINGLENODE:","TEXT (SQLite)"
+"SINGLESCHEMA:","N/A"
+"PROMPT-TEXT:","Fetching Text (SQLite) Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"PREPROCESS_CSV:","No"
+"NOHDRS:","No"
+"CARTESIAN:","No"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"a0.ww_shift","ww_shift","Y","None","None","Row","c","","csv","SQL->a0.[ww_shift]","col17"
+"a0.calcudf1","team","Y","None","None","Row","c","","csv","SQL->a0.[calcudf1]","col18"
+"a0.prodgroup3","prodgroup3","Y","None","None","Row","c","","csv","SQL->a0.[prodgroup3]","col1"
+"a0.operation","operation","Y","None","None","Row","c","","csv","SQL->a0.[operation]","col3"
+"a0.owner","owner","Y","None","None","Row","c","","csv","SQL->a0.[owner]","col5"
+"a0.lot","lot","Y","None","Count","Row","c","","csv","SQL->a0.[lot]","col2"
+"f(x)->bundle size","bundle size","Y","None","None","Row","n","bundle size","csv","SQL->CASE WHEN CASE WHEN a0.[bundle size] = '' THEN NULL ELSE CAST (a0.[bundle size] AS REAL) END = '' THEN NULL ELSE CAST (CASE WHEN a0.[bundle size] = '' THEN NULL ELSE CAST (a0.[bundle size] AS REAL) END AS INTEGER) END","col11"
+"f(x)->qty","qty","Y","None","Sum","Row","f","qty","csv","SQL->CASE WHEN a0.[qty] = '' THEN NULL ELSE CAST (a0.[qty] AS REAL) END","col12"
+"f(x)->{qty} /1000","qty1","Y:2","None","Sum","Row","F","***","@if@1","SQL->{col12} /1000","col16"
+"f(x)->buddle_qty","buddle_qty","Y","None","Sum","Row","n","buddle_qty","csv","SQL->CASE WHEN CASE WHEN a0.[buddle] = '' THEN NULL ELSE CAST (a0.[buddle] AS REAL) END = '' THEN NULL ELSE CAST (CASE WHEN a0.[buddle] = '' THEN NULL ELSE CAST (a0.[buddle] AS REAL) END AS INTEGER) END","col15"
+"a1.ww_shift","ww_shift_1","P","None","None","Row","c","","csv","SQL->a1.[ww_shift]","col19"
+"a1.prod","prod","P","None","None","Row","c","","csv","SQL->a1.[prod]","col21"
+"a1.operation","operation_1","P","None","None","Row","c","","csv","SQL->a1.[operation]","col22"
+"a1.owner","owner_1","P","None","None","Row","c","","csv","SQL->a1.[owner]","col23"
+"f(x)->smalllotcount","smalllotcount","Y","None","None","Row","n","smalllotcount","csv","SQL->CASE WHEN a1.[smalllotcount] = '' THEN NULL ELSE CAST (a1.[smalllotcount] AS INTEGER) END","col20"
+"f(x)->SUM ( {smalllotcount} ) OVER (PARTITION BY  {ww_shift} )","total_smalllotcount","Y","None","None","Row","N","***","s+1","SQL->SUM ( {col20} ) OVER (PARTITION BY  {col17} )","col24"
+"JOINGRID:"
+"","","Sqlite->a0.ww_shift                                                                                                    : SQL->{col17}","=","Sqlite->a1.ww_shift                                                                                                    : SQL->{col19}",""
+"","","Sqlite->a0.prodgroup3                                                                                                    : SQL->{col1}","=","Sqlite->a1.prod                                                                                                    : SQL->{col21}",""
+"","","Sqlite->a0.operation                                                                                                    : SQL->{col3}","=","Sqlite->a1.operation                                                                                                    : SQL->{col22}",""
+"","","Sqlite->a0.owner                                                                                                    : SQL->{col5}","=","Sqlite->a1.owner                                                                                                    : SQL->{col23}",""
+"FILTERGRID:"
+
+
+/END_EMBED
+/EMBED=VG2;Calendar
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","No"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","Yes"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:",""
+"EXCEL:","calendar.tab"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","N"
+"QUERYROWS:","28"
+"JOINROWS:","0"
+"FILTERROWS:","1"
+"COL_ID_COUNTER:","44"
+"CHART_COUNTER:","0"
+"PIVOTMODE:","0"
+"SQLITESPECIALHDRS:","1"
+"LEGACYPIVOTHDRS:","0"
+"USEPYENGINE:","Y"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Copy:Y@EXEDIR@\SPFCopy.bat <~>\\cdATSHFS.intel.com\CDATAnalysis$\MAOATM\zhengwee\Calendar\calendar_raw.tab<~> <~>.\<~> <~>N<~>"
+"UTILITIESDESC:","Copy Files/Folders"
+"<---- New Query ---->","1:5:SQL"
+"TABLEGRID:","1"
+"","calendar_raw.tab a1",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","CR.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","SQLite"
+"SINGLENODE:","TEXT (SQLite)"
+"SINGLESCHEMA:","N/A"
+"PROMPT-TEXT:","Fetching Text (SQLite) Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"PREPROCESS_CSV:","No"
+"NOHDRS:","No"
+"CARTESIAN:","No"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"a1.start_date","start_date","Y","None","None","Row","c","","csv","SQL->a1.[start_date]","col17"
+"a1.end_date","end_date","Y","None","None","Row","c","","csv","SQL->a1.[end_date]","col18"
+"a1.event_code","event_code","Y","None","None","Row","c","","csv","SQL->a1.[event_code]","col19"
+"a1.facility","facility","Y","None","None","Row","c","","csv","SQL->a1.[facility]","col20"
+"a1.shift","shift","Y","None","None","Row","c","","csv","SQL->a1.[shift]","col21"
+"a1.ww","ww","Y","None","None","Row","c","","csv","SQL->a1.[ww]","col22"
+"a1.month","month","Y","None","None","Row","c","","csv","SQL->a1.[month]","col23"
+"a1.qtr","qtr","Y","None","None","Row","c","","csv","SQL->a1.[qtr]","col24"
+"a1.dow","dow","Y","None","None","Row","c","","csv","SQL->a1.[dow]","col25"
+"a1.day","day","Y","None","None","Row","c","","csv","SQL->a1.[day]","col26"
+"a1.ww_start_date","ww_start_date","Y","None","None","Row","c","","csv","SQL->a1.[ww_start_date]","col27"
+"a1.ww_end_date","ww_end_date","Y","None","None","Row","c","","csv","SQL->a1.[ww_end_date]","col28"
+"a1.start_date_macro","start_date_macro","Y","None","None","Row","c","","csv","SQL->a1.[start_date_macro]","col29"
+"a1.end_date_macro","end_date_macro","Y","None","None","Row","c","","csv","SQL->a1.[end_date_macro]","col30"
+"a1.cal_event_description","cal_event_description","Y","None","None","Row","c","","csv","SQL->a1.[cal_event_description]","col31"
+"a1.calcudf1","calcudf1","Y","None","None","Row","c","","csv","SQL->a1.[calcudf1]","col32"
+"a1.calcudf2","calcudf2","Y","None","None","Row","c","","csv","SQL->a1.[calcudf2]","col33"
+"a1.calcudf3","calcudf3","Y","None","None","Row","c","","csv","SQL->a1.[calcudf3]","col34"
+"a1.shiftno","shiftno","Y","None","None","Row","c","","csv","SQL->a1.[shiftno]","col35"
+"a1.load_date","load_date","Y","None","None","Row","c","","csv","SQL->a1.[load_date]","col36"
+"a1.ww_shift","ww_shift","Y","None","None","Row","c","","csv","SQL->a1.[ww_shift]","col37"
+"f(x)->SPF_FN$Date_Diff(  {nowtime} ,   {end_date}   )","sysdate_enddate","Y","None","None","Row","F","***","@if@1","SQL->SPF_FN$Date_Diff(  {col40} ,   {col18}   )","col38"
+"f(x)->SPF_FN$Date_Diff(  {nowtime} ,   {start_date}   )","sysdate_startdate","Y","None","None","Row","F","***","@if@1","SQL->SPF_FN$Date_Diff(  {col40} ,   {col17}   )","col39"
+"f(x)->Datetime('now','localtime')","nowtime","Y","None","None","Row","H","***","","SQL->Datetime('now','localtime')","col40"
+"f(x)->SUBSTR( {nowtime} ,-8,4)","refresh_hour","Y","None","None","Row","C","***","@if@1","SQL->SUBSTR( {col40} ,-8,4)","col41"
+"f(x)->24*SPF_FN$Date_Diff( Datetime('now','localtime') , {start_date} ) /12","shift_qty","Y","None","None","Row","F","***","csv","SQL->24*SPF_FN$Date_Diff( Datetime('now','localtime') , {col17} ) /12","col42"
+"f(x)->{start_date}","currentshiftstart","Y","None","None","Row","H","***","csv","SQL->{col17}","col43"
+"f(x)->SUBSTR( {ww} ,1,4)   || SUBSTR( {ww_shift} ,3,2) || '_' || SUBSTR( {ww_shift} ,-2,2)","yy_ww","Y","None","None","Row","C","***","csv","SQL->SUBSTR( {col22} ,1,4)   || SUBSTR( {col37} ,3,2) || '_' || SUBSTR( {col37} ,-2,2)","col44"
+"JOINGRID:"
+"FILTERGRID:"
+"AND","","f(x)->{sysdate_startdate}","Between","0","","","fx","@if@2","SQL->{col39}","70"
+
+
+
+
+
+
+
+
+
+
+
+
+/END_EMBED
+/EMBED=VG2;Canlendar1
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","No"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","Yes"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:",""
+"EXCEL:","calendar1.tab"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","N"
+"QUERYROWS:","29"
+"JOINROWS:","0"
+"FILTERROWS:","1"
+"COL_ID_COUNTER:","45"
+"CHART_COUNTER:","0"
+"PIVOTMODE:","0"
+"SQLITESPECIALHDRS:","1"
+"LEGACYPIVOTHDRS:","0"
+"USEPYENGINE:","Y"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","1:5:SQL"
+"TABLEGRID:","1"
+"","calendar_raw.tab a1",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","CR.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","SQLite"
+"SINGLENODE:","TEXT (SQLite)"
+"SINGLESCHEMA:","N/A"
+"PROMPT-TEXT:","Fetching Text (SQLite) Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"PREPROCESS_CSV:","No"
+"NOHDRS:","No"
+"CARTESIAN:","No"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"a1.start_date","start_date","Y","None","None","Row","c","","csv","SQL->a1.[start_date]","col17"
+"a1.end_date","end_date","Y","None","None","Row","c","","csv","SQL->a1.[end_date]","col18"
+"a1.event_code","event_code","Y","None","None","Row","c","","csv","SQL->a1.[event_code]","col19"
+"a1.facility","facility","Y","None","None","Row","c","","csv","SQL->a1.[facility]","col20"
+"a1.shift","shift","Y","None","None","Row","c","","csv","SQL->a1.[shift]","col21"
+"a1.ww","ww","Y","None","None","Row","c","","csv","SQL->a1.[ww]","col22"
+"a1.month","month","Y","None","None","Row","c","","csv","SQL->a1.[month]","col23"
+"a1.qtr","qtr","Y","None","None","Row","c","","csv","SQL->a1.[qtr]","col24"
+"a1.dow","dow","Y","None","None","Row","c","","csv","SQL->a1.[dow]","col25"
+"a1.day","day","Y","None","None","Row","c","","csv","SQL->a1.[day]","col26"
+"a1.ww_start_date","ww_start_date","Y","None","None","Row","c","","csv","SQL->a1.[ww_start_date]","col27"
+"a1.ww_end_date","ww_end_date","Y","None","None","Row","c","","csv","SQL->a1.[ww_end_date]","col28"
+"a1.start_date_macro","start_date_macro","Y","None","None","Row","c","","csv","SQL->a1.[start_date_macro]","col29"
+"a1.end_date_macro","end_date_macro","Y","None","None","Row","c","","csv","SQL->a1.[end_date_macro]","col30"
+"a1.cal_event_description","cal_event_description","Y","None","None","Row","c","","csv","SQL->a1.[cal_event_description]","col31"
+"a1.calcudf1","calcudf1","Y","None","None","Row","c","","csv","SQL->a1.[calcudf1]","col32"
+"a1.calcudf2","calcudf2","Y","None","None","Row","c","","csv","SQL->a1.[calcudf2]","col33"
+"a1.calcudf3","calcudf3","Y","None","None","Row","c","","csv","SQL->a1.[calcudf3]","col34"
+"a1.shiftno","shiftno","Y","None","None","Row","c","","csv","SQL->a1.[shiftno]","col35"
+"a1.load_date","load_date","Y","None","None","Row","c","","csv","SQL->a1.[load_date]","col36"
+"a1.ww_shift","ww_shift","Y","None","None","Row","c","","csv","SQL->a1.[ww_shift]","col37"
+"f(x)->SPF_FN$Date_Diff(  {nowtime} ,   {end_date}   )","sysdate_enddate","Y","None","None","Row","F","***","@if@1","SQL->SPF_FN$Date_Diff(  {col40} ,   {col18}   )","col38"
+"f(x)->SPF_FN$Date_Diff(  {nowtime} ,   {start_date}   )","sysdate_startdate","Y","None","None","Row","F","***","@if@1","SQL->SPF_FN$Date_Diff(  {col40} ,   {col17}   )","col39"
+"f(x)->Datetime('now','localtime')","nowtime","Y","None","None","Row","H","***","","SQL->Datetime('now','localtime')","col40"
+"f(x)->SUBSTR( {nowtime} ,-8,4)","refresh_hour","Y","None","None","Row","C","***","@if@1","SQL->SUBSTR( {col40} ,-8,4)","col41"
+"f(x)->24*SPF_FN$Date_Diff( Datetime('now','localtime') , {start_date} ) /12","shift_qty","Y","None","None","Row","F","***","csv","SQL->24*SPF_FN$Date_Diff( Datetime('now','localtime') , {col17} ) /12","col42"
+"f(x)->{start_date}","currentshiftstart","Y","None","None","Row","H","***","csv","SQL->{col17}","col43"
+"f(x)->SPF_FN$Date_Diff( {nowtime} , {start_date} ) *24","hour","Y","None","None","Row","F","***","@if@1","SQL->SPF_FN$Date_Diff( {col40} , {col17} ) *24","col44"
+"f(x)->SUBSTR( {ww} ,1,4)  || SUBSTR( {ww_shift} ,3,2) || '_' || SUBSTR( {ww_shift} ,-2,2)","yy_ww","Y","None","None","Row","C","***","csv","SQL->SUBSTR( {col22} ,1,4)  || SUBSTR( {col37} ,3,2) || '_' || SUBSTR( {col37} ,-2,2)","col45"
+"JOINGRID:"
+"FILTERGRID:"
+"AND","","f(x)->{sysdate_startdate}","Between","0","","","fx","@if@2","SQL->{col39}","0.5"
+
+
+
+
+
+
+
+
+
+
+
+
+/END_EMBED
+/EMBED=VG2;INSFGI Chart
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","No"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","Yes"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:",""
+"EXCEL:","in_sfgi_chart.tab"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","N"
+"QUERYROWS:","6"
+"JOINROWS:","1"
+"FILTERROWS:","1"
+"COL_ID_COUNTER:","23"
+"CHART_COUNTER:","0"
+"PIVOTMODE:","0"
+"SQLITESPECIALHDRS:","1"
+"LEGACYPIVOTHDRS:","0"
+"USEPYENGINE:","Y"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","1:5:SQL"
+"TABLEGRID:","2"
+"","insfgi_f.tab a0",""
+"","smalllotchart.tab a1",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","SQLite"
+"SINGLENODE:","TEXT (SQLite)"
+"SINGLESCHEMA:","N/A"
+"PROMPT-TEXT:","Fetching Text (SQLite) Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"PREPROCESS_CSV:","No"
+"NOHDRS:","No"
+"CARTESIAN:","No"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"a0.ww_shift","ww_shift","Y","None","None","Row","c","","csv","SQL->a0.[ww_shift]","col17"
+"a0.lot","lot","Y","None","Count","Row","c","","csv","SQL->a0.[lot]","col2"
+"f(x)->buddle_qty","buddle_qty","Y","None","Sum","Row","n","buddle_qty","csv","SQL->CASE WHEN CASE WHEN a0.[buddle] = '' THEN NULL ELSE CAST (a0.[buddle] AS REAL) END = '' THEN NULL ELSE CAST (CASE WHEN a0.[buddle] = '' THEN NULL ELSE CAST (a0.[buddle] AS REAL) END AS INTEGER) END","col15"
+"f(x)->txn_date","txn_date","N","None","None","Row","d","txn_date","csv","SQL->CASE WHEN a0.[txn_date] = '' THEN NULL ELSE CAST (a0.[txn_date] AS TEXT) END","col21"
+"a1.ww_shift","ww_shift_1","Y","None","None","Row","c","","csv","SQL->a1.[ww_shift]","col22"
+"f(x)->lotcount","smalllotcount","Y","None","None","Row","n","lotcount","csv","SQL->CASE WHEN a1.[lotcount] = '' THEN NULL ELSE CAST (a1.[lotcount] AS INTEGER) END","col23"
+"JOINGRID:"
+"","","Sqlite->a0.ww_shift                                                                                                    : SQL->{col17}","=","Sqlite->a1.ww_shift                                                                                                    : SQL->{col22}",""
+"FILTERGRID:"
+"AND","","f(x)->txn_date",">=","Date('now','localtime','-30 days') || ' 00:00:00'","","","d","csv","SQL->CASE WHEN a0.[txn_date] = '' THEN NULL ELSE CAST (a0.[txn_date] AS TEXT) END",""
+
+
+/END_EMBED
+/EMBED=VG2;HTML
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","No"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","Yes"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:",""
+"EXCEL:","out_17499.tab"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","N"
+"QUERYROWS:","0"
+"JOINROWS:","0"
+"FILTERROWS:","0"
+"COL_ID_COUNTER:","12"
+"CHART_COUNTER:","17"
+"PIVOTMODE:","0"
+"SQLITESPECIALHDRS:","1"
+"LEGACYPIVOTHDRS:","0"
+"USEPYENGINE:","Y"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->HTML-Report:YYN465"
+"UTILITIESDESC:","Create an HTML Report"
+"HTML-BEGIN",""
+"HTML-SCRIPT"
+"HTML-REPCSS:MYCSS13</@#;>MyCSS13</@#;>"
+"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Type<\\>Key<\\>COL1<\\>COL2<\\>COL3<\\>COL4<\\>COL5<\\>COL6<\\>COL7<\\>COL8<\\>COL9"
+"TYPE<\\>CSS<\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"CSS<\\>sqlpathfinder_style_1.css<\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"FORMAT<\\>Column-Headers<\\>background-color:#dbd9c0<\\>color:#444<\\>font-family:arial<\\>font-size:12<\\>font-style:normal<\\>font-weight:bold<\\>text-align:left<\\>text-decoration:normal<\\>vertical-align:middle"
+"FORMAT<\\>Column-Data<\\>background-color:white<\\>color:#444<\\>font-family:arial<\\>font-size:12<\\>font-style:normal<\\>text-align:left<\\>vertical-align:middle<\\><\\>"
+"FORMAT<\\>Column-Alt-Row<\\>background-color:#f7f5dc<\\>color:#333<\\>font-family:arial<\\>font-size:12<\\>font-style:normal<\\>text-align:left<\\>vertical-align:middle<\\><\\>"
+"FORMAT<\\>At-Top-of-Report<\\>background-color:white<\\>color:#444<\\>font-family:arial<\\>font-size:15<\\>font-style:normal<\\>font-weight:bold<\\>text-align:center<\\>vertical-align:middle<\\>"
+"FORMAT<\\>At-Top-of-Col1<\\>background-color:white<\\>color:#444<\\>font-family:arial<\\>font-size:12<\\>font-style:normal<\\>font-weight:bold<\\>text-align:left<\\>vertical-align:middle<\\>"
+"FORMAT<\\>At-Top-of-Col2<\\>background-color:white<\\>color:#444<\\>font-family:arial<\\>font-size:12<\\>font-style:normal<\\>font-weight:bold<\\>text-align:left<\\>vertical-align:middle<\\>"
+"FORMAT<\\>At-Top-of-Col3<\\>background-color:white<\\>color:#444<\\>font-family:arial<\\>font-size:12<\\>font-style:normal<\\>font-weight:bold<\\>text-align:left<\\>vertical-align:middle<\\>"
+"FORMAT<\\>JQX-All-IChart-Text<\\>background-color:white<\\>color:black<\\>font-family:verdana<\\>font-size:11<\\>font-style:normal<\\>font-weight:normal<\\>text-align:left<\\>vertical-align:middle<\\>"
+"FORMAT<\\>COLUMN-BORDER<\\>border-color:#cc9<\\>border-collapse:collapse<\\>border-style:solid<\\>border-width:1px<\\>border-spacing:4px<\\><\\><\\><\\>"
+"HTML-REPORT-SPEC-END"
+"HTML-REPORT:MYREPORT14</@#;>INSFGIREPORT</@#;>"
+"
+
+
+
+Type<\\>Key<\\>COL1<\\>COL2<\\>COL3<\\>COL4<\\>COL5<\\>COL6<\\>COL7<\\>COL8<\\>COL9<\\>COL10<\\>COL11<\\>COL12"
+"TYPE<\\>HTML<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"INPUT-FILE<\\>in_sfgi_final.tab<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"OUTPUT-FILE<\\>SQLPathFinder.htm<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"CSS<\\>sqlpathfinder_style_1.css<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"COLSPAN<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"DRILLDOWN<\\>N<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"DYNAMICSORT<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"DYNAMICFILTER<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"ATTOPDRILLDOWN<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"NOPREPROCESS<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"SORT<\\>ww_shift<\\>Asc<\\>Y<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"SORT<\\>team<\\>Asc<\\>Y<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"SORT<\\>total_smalllotcount<\\>Asc<\\>Y<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"SORT<\\>prodgroup3<\\>Asc<\\>Y<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"SORT<\\>operation<\\>Asc<\\>Y<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"SORT<\\>owner<\\>Asc<\\>Y<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"COLUMN-DATA<\\><\\>ww_shift<\\>team<\\>prodgroup3<\\>operation<\\>owner<\\>lot<\\>bundle size<\\>qty1<\\>buddle_qty<\\>smalllotcount<\\>total_smalllotcount<\\>"
+"COLUMN-HEADERS<\\><\\>Shift<\\>Team<\\>Prodgroup3<\\>Operation<\\>Owner<\\>Lot Count<\\>Bundle Size<\\>Qty (k)<\\>Buddle Qty<\\>SmallLot Count<\\>Total SmallLot Count<\\>"
+"COLUMN-ALIGNMENT<\\><\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>"
+"COLUMN-FORMAT<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"HTML-REPORT-SPEC-END"
+"HTML-CHART:MYGNUPLOTCHART4.GIF</@#;>MygnuPlotChart4</@#;>in_sfgi_chart.tab</@#;>gnuplotchart.ini</@#;>14=ww_shift<\\>15=lot;All_Lot_Count;Sum;x1y2;linespoints;2;#FF0000</tr>buddle_qty;All_Buddle_Qty;Sum;x1y2;linespoints;2;#000000</tr>smalllotcount;SmallLot_Count;Sum;x1y2;linespoints;2;#008040<\\>16=Move In SFGI Lot Trend<\\>48=0<\\>49=0<\\>50=back<\\>51=0<\\>52=0<\\>54=0<\\>56=*<\\>57=*<\\>58=*<\\>59=*<\\>60=*<\\>61=*<\\>62=in_sfgi_chart.tab<\\>63=\t<\\>64=-45<\\>66=1500<\\>67=600<\\>68=#SQLVAR=ww_shift;;lot;buddle_qty;smalllotcount<{><}>#SQLHDR=;;All_Lot_Count;All_Buddle_Qty;SmallLot_Count<{><}>#SQLSUM=;;Sum;Sum;Sum<{><}>#SQLPLA=;;x1y2;x1y2;x1y2<{><}>#SQLPLS=;;linespoints;linespoints;linespoints<{><}>#SQLPLW=;;2;2;2<{><}>#SQLPLC=;;#FF0000;#000000;#008040<\\>70=Arial,11<\\>OPT2=clustered<\\>OPT3=fill solid 1 border -1<\\>OPT4=%Y-%m-%d %T<\\>OPT5=None<\\>OPT6=None<\\>OPT7=None<\\>OPT8=0<\\>OPT9=none<\\>OPT10=0</@#;>Yes"
+"HTML-CREATE WINDOW:WIN3</@#;>0@@@https://content.sp2019.intel.com/sites/CD/CDATwebshare/IonReport/SFGI_kitting_report/Movein_SFGI_Report.htm@@@sqlpathfinder_style_1.css@@@E->Y@@@RR->NO@@@B->N@@@EM-A->@@@EM-S->@@@SEC->Y@@@Text:1:white<:>black<:>Y<:>N<:>N<:>verdana<:>16<:>Center<:>SFGI Summary Report<<TS>>|MYGNUPLOTCHART4.GIF|MYREPORT14@@@</@#;>Win3</@#;>ShelfUtilizationReport"
+"HTML-REPORT:MYREPORT15</@#;>MyReport15</@#;>"
+"
+
+
+
+
+
+
+
+Type<\\>Key<\\>COL1<\\>COL2<\\>COL3<\\>COL4<\\>COL5<\\>COL6<\\>COL7<\\>COL8<\\>COL9<\\>COL10<\\>COL11<\\>COL12<\\>COL13<\\>COL14<\\>COL15<\\>COL16"
+"TYPE<\\>HTML<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"INPUT-FILE<\\>smalllotmonthdata.tab<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"OUTPUT-FILE<\\>SQLPathFinder.htm<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"CSS<\\>sqlpathfinder_style_1.css<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"COLSPAN<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"DRILLDOWN<\\>N<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"DYNAMICSORT<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"DYNAMICFILTER<\\>Y<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"ATTOPDRILLDOWN<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"NOPREPROCESS<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"AT-TOP-OF-REPORT<\\><\\>Small LOT 1 Month Kitting Data<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"COLUMN-DATA<\\><\\>weekdate<\\>team<\\>premerge_lot_count<\\>premerge_bundle_count<\\>premerge_goal<\\>premerge_lot_delta<\\>small_kitting_lot_count<\\>small_kitting_bundle_count<\\>save_bin_lot_count<\\>save_bin_bundle_count<\\>total_small_lot_count<\\>total_small_bundle_count<\\>goal<\\>lot_delta<\\>met_pack<\\>all_unpack"
+"COLUMN-HEADERS<\\><\\>Weekdate<\\>Team<\\>Premerge Lot Count<\\>Premerge Bundle Count<\\>Premerge Goal<\\>Premerge Lot Delta<\\>Small Kitting Lot Count<\\>Small Kitting Bundle Count<\\>Save Bin Lot Count<\\>Save Bin Bundle Count<\\>Total Small Lot Count<\\>Total Small Bundle Count<\\>Goal<\\>Lot Delta<\\>All Bundle Met Pack<\\>All Bundle Unpack"
+"COLUMN-ALIGNMENT<\\><\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left"
+"COLUMN-FORMAT<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"COLUMN-RULE1<\\>lot_delta<\\>lot_delta<\\>LE<\\>0<\\>background-color:red<\\>color:white<\\>font-style:normal<\\>font-weight:bold<\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"COLUMN-RULE2<\\>premerge_lot_delta<\\>premerge_lot_delta<\\>LE<\\>0<\\>background-color:red<\\>color:white<\\>font-style:normal<\\>font-weight:bold<\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"HTML-REPORT-SPEC-END"
+"HTML-REPORT:MYREPORT16</@#;>MyReport16</@#;>"
+"
+
+
+
+
+
+
+
+
+
+Type<\\>Key<\\>COL1<\\>COL2<\\>COL3<\\>COL4<\\>COL5<\\>COL6<\\>COL7<\\>COL8<\\>COL9<\\>COL10<\\>COL11<\\>COL12"
+"TYPE<\\>HTML<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"INPUT-FILE<\\>Alllotdata.tab<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"OUTPUT-FILE<\\>SQLPathFinder.htm<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"CSS<\\>sqlpathfinder_style_1.css<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"COLSPAN<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"DRILLDOWN<\\>N<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"DYNAMICSORT<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"DYNAMICFILTER<\\>Y<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"ATTOPDRILLDOWN<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"NOPREPROCESS<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"AT-TOP-OF-REPORT<\\><\\>All Lot 1 Month Kitting Data<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"COLUMN-DATA<\\><\\>weekdate<\\>team<\\>premerge_lot_count<\\>premerge_bundle_count<\\>small_kitting_lot_count<\\>small_kitting_bundle_count<\\>save_bin_lot_count<\\>save_bin_bundle_count<\\>total_small_lot_count<\\>total_small_bundle_count<\\>bundle_pack<\\>bundle_unpack"
+"COLUMN-HEADERS<\\><\\>Weekdate<\\>Team<\\>Premerge Lot Count<\\>Premerge Bundle Count<\\>Small Kitting Lot Count<\\>Small Kitting Bundle Count<\\>Save Bin Lot Count<\\>Save Bin Bundle Count<\\>Total Small Lot Count<\\>Total Small Bundle Count<\\>All Bundle Pack<\\>All Bundle Unpack"
+"COLUMN-ALIGNMENT<\\><\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left<\\>middle-left"
+"COLUMN-FORMAT<\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\><\\>"
+"HTML-REPORT-SPEC-END"
+"HTML-CREATE WINDOW:WIN17</@#;>0@@@https://content.sp2019.intel.com/sites/CD/CDATwebshare/IonReport/SFGI_kitting_report/SFGILotKittingTrackingByMonth.htm@@@sqlpathfinder_style_1.css@@@E->Y@@@RR->NO@@@B->N@@@EM-A->@@@EM-S->@@@SEC->Y@@@Text:1:white<:>black<:>Y<:>N<:>N<:>verdana<:>14<:>Center<:>SFGI LOT Kitting Summary Tracking<<TS>>|Text:1:white<:>black<:>N<:>N<:>N<:>Verdana<:>12<:>Left<:>*Small Lot means Lot qty<300u<br>|MYREPORT15|MYREPORT16@@@</@#;>Win17</@#;>Window Title or Email Subject"
+"HTML-END"
+"<---- New Query ---->","5:3:UTILITIES"
+"UTILITIES:","U->Copy:N@EXEDIR@\SPFCopy.bat <~>Movein_SFGI_Report.htm,sqlpathfinder_style_1.css,mygnuplotchart4.gif,SFGILotKittingTrackingByMonth.htm<~> <~>\\cdATSHFS.intel.com\CDATAnalysis$\MAOATM\WangQi4\SFGI Monthly Report\<~> <~>N<~>"
+"UTILITIESDESC:","Copy Files/Folders"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"JOINGRID:"
+"FILTERGRID:"
+
+
+
+
+/END_EMBED
+/EMBED=VG2;SmallLot summery
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","No"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","Yes"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:",""
+"EXCEL:","smalllot_summery.tab"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","N"
+"QUERYROWS:","16"
+"JOINROWS:","0"
+"FILTERROWS:","0"
+"COL_ID_COUNTER:","24"
+"CHART_COUNTER:","0"
+"PIVOTMODE:","0"
+"JOINHADOOP:","0"
+"SQLITESPECIALHDRS:","1"
+"LEGACYPIVOTHDRS:","0"
+"USEPYENGINE:","Y"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","1:5:SQL"
+"TABLEGRID:","1"
+"","Month_small_lot.csv a0",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","SQLite"
+"SINGLENODE:","TEXT (SQLite)"
+"SINGLESCHEMA:","N/A"
+"PROMPT-TEXT:","Fetching Text (SQLite) Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"PREPROCESS_CSV:","No"
+"NOHDRS:","No"
+"CARTESIAN:","No"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"f(x)->'Summary'","weekdate","Y","None","None","Row","C","***","","SQL->'Summary'","col20"
+"f(x)->'Summary'","team","Y","None","None","Row","C","***","","SQL->'Summary'","col21"
+"f(x)->premerge_lot_count","premerge_lot_count","Y","None","Sum","Row","n","premerge_lot_count","csv","SQL->CASE WHEN a0.[premerge_lot_count] = '' THEN NULL ELSE CAST (a0.[premerge_lot_count] AS INTEGER) END","col3"
+"f(x)->premerge_bundle_count","premerge_bundle_count","Y","None","Sum","Row","n","premerge_bundle_count","csv","SQL->CASE WHEN a0.[premerge_bundle_count] = '' THEN NULL ELSE CAST (a0.[premerge_bundle_count] AS INTEGER) END","col4"
+"f(x)->premerge_lot_delta","premerge_lot_delta","Y","None","Sum","Row","n","premerge_lot_delta","csv","SQL->CASE WHEN a0.[premerge_lot_delta] = '' THEN NULL ELSE CAST (a0.[premerge_lot_delta] AS INTEGER) END","col6"
+"f(x)->small_kitting_lot_count","small_kitting_lot_count","Y","None","Sum","Row","n","small_kitting_lot_count","csv","SQL->CASE WHEN a0.[small_kitting_lot_count] = '' THEN NULL ELSE CAST (a0.[small_kitting_lot_count] AS INTEGER) END","col7"
+"f(x)->small_kitting_bundle_count","small_kitting_bundle_count","Y","None","Sum","Row","n","small_kitting_bundle_count","csv","SQL->CASE WHEN a0.[small_kitting_bundle_count] = '' THEN NULL ELSE CAST (a0.[small_kitting_bundle_count] AS INTEGER) END","col8"
+"f(x)->save_bin_lot_count","save_bin_lot_count","Y","None","Sum","Row","n","save_bin_lot_count","csv","SQL->CASE WHEN a0.[save_bin_lot_count] = '' THEN NULL ELSE CAST (a0.[save_bin_lot_count] AS INTEGER) END","col9"
+"f(x)->save_bin_bundle_count","save_bin_bundle_count","Y","None","Sum","Row","n","save_bin_bundle_count","csv","SQL->CASE WHEN a0.[save_bin_bundle_count] = '' THEN NULL ELSE CAST (a0.[save_bin_bundle_count] AS INTEGER) END","col10"
+"f(x)->total_small_lot_count","total_small_lot_count","Y","None","Sum","Row","n","total_small_lot_count","csv","SQL->CASE WHEN a0.[total_small_lot_count] = '' THEN NULL ELSE CAST (a0.[total_small_lot_count] AS INTEGER) END","col11"
+"f(x)->total_small_bundle_count","total_small_bundle_count","Y","None","Sum","Row","n","total_small_bundle_count","csv","SQL->CASE WHEN a0.[total_small_bundle_count] = '' THEN NULL ELSE CAST (a0.[total_small_bundle_count] AS INTEGER) END","col12"
+"f(x)->lot_delta","lot_delta","Y","None","Sum","Row","n","lot_delta","csv","SQL->CASE WHEN a0.[lot_delta] = '' THEN NULL ELSE CAST (a0.[lot_delta] AS INTEGER) END","col14"
+"f(x)->met_pack","met_pack","Y","None","Sum","Row","n","met_pack","csv","SQL->CASE WHEN a0.[met_pack] = '' THEN NULL ELSE CAST (a0.[met_pack] AS INTEGER) END","col15"
+"f(x)->goal","goal","Y","None","Avg","Row","n","goal","csv","SQL->CASE WHEN CASE WHEN a0.[goal] = '' THEN NULL ELSE CAST (a0.[goal] AS INTEGER) END = '' THEN NULL ELSE CAST (CASE WHEN a0.[goal] = '' THEN NULL ELSE CAST (a0.[goal] AS INTEGER) END AS INTEGER) END","col22"
+"f(x)->premerge_goal","premerge_goal","Y","None","Avg","Row","n","premerge_goal","csv","SQL->CASE WHEN a0.[premerge_goal] = '' THEN NULL ELSE CAST (a0.[premerge_goal] AS INTEGER) END","col23"
+"f(x)->all_unpack","all_unpack","Y","None","Sum","Row","n","all_unpack","csv","SQL->CASE WHEN a0.[all_unpack] = '' THEN NULL ELSE CAST (a0.[all_unpack] AS INTEGER) END","col24"
+"JOINGRID:"
+"FILTERGRID:"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/END_EMBED
+/EMBED=VG2;Month small Data
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","No"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","Yes"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:",""
+"EXCEL:","smalllotmonthdata.tab"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","N"
+"QUERYROWS:","16"
+"JOINROWS:","0"
+"FILTERROWS:","0"
+"COL_ID_COUNTER:","20"
+"CHART_COUNTER:","0"
+"PIVOTMODE:","0"
+"JOINHADOOP:","0"
+"SQLITESPECIALHDRS:","1"
+"LEGACYPIVOTHDRS:","0"
+"USEPYENGINE:","Y"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","1:5:SQL"
+"TABLEGRID:","1"
+"","Month_small_lot.csv a0",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","SQLite"
+"SINGLENODE:","TEXT (SQLite)"
+"SINGLESCHEMA:","N/A"
+"PROMPT-TEXT:","Fetching Text (SQLite) Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"PREPROCESS_CSV:","No"
+"NOHDRS:","No"
+"CARTESIAN:","No"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"a0.weekdate","weekdate","Y","None","None","Row","c","","csv","SQL->a0.[weekdate]","col1"
+"a0.team","team","Y","None","None","Row","c","","csv","SQL->a0.[team]","col2"
+"f(x)->premerge_lot_count","premerge_lot_count","Y","None","None","Row","n","premerge_lot_count","csv","SQL->CASE WHEN a0.[premerge_lot_count] = '' THEN NULL ELSE CAST (a0.[premerge_lot_count] AS INTEGER) END","col3"
+"f(x)->premerge_bundle_count","premerge_bundle_count","Y","None","None","Row","n","premerge_bundle_count","csv","SQL->CASE WHEN a0.[premerge_bundle_count] = '' THEN NULL ELSE CAST (a0.[premerge_bundle_count] AS INTEGER) END","col4"
+"f(x)->premerge_goal","premerge_goal","Y","None","None","Row","n","premerge_goal","csv","SQL->CASE WHEN a0.[premerge_goal] = '' THEN NULL ELSE CAST (a0.[premerge_goal] AS INTEGER) END","col5"
+"f(x)->premerge_lot_delta","premerge_lot_delta","Y","None","None","Row","n","premerge_lot_delta","csv","SQL->CASE WHEN a0.[premerge_lot_delta] = '' THEN NULL ELSE CAST (a0.[premerge_lot_delta] AS INTEGER) END","col6"
+"f(x)->small_kitting_lot_count","small_kitting_lot_count","Y","None","None","Row","n","small_kitting_lot_count","csv","SQL->CASE WHEN a0.[small_kitting_lot_count] = '' THEN NULL ELSE CAST (a0.[small_kitting_lot_count] AS INTEGER) END","col7"
+"f(x)->small_kitting_bundle_count","small_kitting_bundle_count","Y","None","None","Row","n","small_kitting_bundle_count","csv","SQL->CASE WHEN a0.[small_kitting_bundle_count] = '' THEN NULL ELSE CAST (a0.[small_kitting_bundle_count] AS INTEGER) END","col8"
+"f(x)->save_bin_lot_count","save_bin_lot_count","Y","None","None","Row","n","save_bin_lot_count","csv","SQL->CASE WHEN a0.[save_bin_lot_count] = '' THEN NULL ELSE CAST (a0.[save_bin_lot_count] AS INTEGER) END","col9"
+"f(x)->save_bin_bundle_count","save_bin_bundle_count","Y","None","None","Row","n","save_bin_bundle_count","csv","SQL->CASE WHEN a0.[save_bin_bundle_count] = '' THEN NULL ELSE CAST (a0.[save_bin_bundle_count] AS INTEGER) END","col10"
+"f(x)->total_small_lot_count","total_small_lot_count","Y","None","None","Row","n","total_small_lot_count","csv","SQL->CASE WHEN a0.[total_small_lot_count] = '' THEN NULL ELSE CAST (a0.[total_small_lot_count] AS INTEGER) END","col11"
+"f(x)->total_small_bundle_count","total_small_bundle_count","Y","None","None","Row","n","total_small_bundle_count","csv","SQL->CASE WHEN a0.[total_small_bundle_count] = '' THEN NULL ELSE CAST (a0.[total_small_bundle_count] AS INTEGER) END","col12"
+"f(x)->goal","goal","Y","None","None","Row","n","goal","csv","SQL->CASE WHEN a0.[goal] = '' THEN NULL ELSE CAST (a0.[goal] AS INTEGER) END","col13"
+"f(x)->lot_delta","lot_delta","Y","None","None","Row","n","lot_delta","csv","SQL->CASE WHEN a0.[lot_delta] = '' THEN NULL ELSE CAST (a0.[lot_delta] AS INTEGER) END","col14"
+"f(x)->met_pack","met_pack","Y","None","None","Row","n","met_pack","csv","SQL->CASE WHEN a0.[met_pack] = '' THEN NULL ELSE CAST (a0.[met_pack] AS INTEGER) END","col15"
+"f(x)->all_unpack","all_unpack","Y","None","None","Row","n","all_unpack","csv","SQL->CASE WHEN a0.[all_unpack] = '' THEN NULL ELSE CAST (a0.[all_unpack] AS INTEGER) END","col20"
+"JOINGRID:"
+"FILTERGRID:"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/END_EMBED
+/EMBED=VG2;All Lot Sumery
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","No"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","Yes"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:",""
+"EXCEL:","Alllotdata.tab"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","N"
+"QUERYROWS:","12"
+"JOINROWS:","0"
+"FILTERROWS:","0"
+"COL_ID_COUNTER:","25"
+"CHART_COUNTER:","0"
+"PIVOTMODE:","0"
+"JOINHADOOP:","0"
+"SQLITESPECIALHDRS:","1"
+"LEGACYPIVOTHDRS:","0"
+"USEPYENGINE:","Y"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","1:5:SQL"
+"TABLEGRID:","1"
+"","ALL_LOT.csv a0",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","SQLite"
+"SINGLENODE:","TEXT (SQLite)"
+"SINGLESCHEMA:","N/A"
+"PROMPT-TEXT:","Fetching Text (SQLite) Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"PREPROCESS_CSV:","No"
+"NOHDRS:","No"
+"CARTESIAN:","No"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"a0.weekdate","weekdate","Y","None","None","Row","c","","csv","SQL->a0.[weekdate]","col1"
+"a0.team","team","Y","None","None","Row","c","","csv","SQL->a0.[team]","col2"
+"f(x)->premerge_lot_count","premerge_lot_count","Y","None","None","Row","n","premerge_lot_count","csv","SQL->CASE WHEN a0.[premerge_lot_count] = '' THEN NULL ELSE CAST (a0.[premerge_lot_count] AS INTEGER) END","col3"
+"f(x)->premerge_bundle_count","premerge_bundle_count","Y","None","None","Row","n","premerge_bundle_count","csv","SQL->CASE WHEN a0.[premerge_bundle_count] = '' THEN NULL ELSE CAST (a0.[premerge_bundle_count] AS INTEGER) END","col4"
+"f(x)->small_kitting_lot_count","small_kitting_lot_count","Y","None","None","Row","n","small_kitting_lot_count","csv","SQL->CASE WHEN a0.[small_kitting_lot_count] = '' THEN NULL ELSE CAST (a0.[small_kitting_lot_count] AS INTEGER) END","col7"
+"f(x)->small_kitting_bundle_count","small_kitting_bundle_count","Y","None","None","Row","n","small_kitting_bundle_count","csv","SQL->CASE WHEN a0.[small_kitting_bundle_count] = '' THEN NULL ELSE CAST (a0.[small_kitting_bundle_count] AS INTEGER) END","col8"
+"f(x)->save_bin_lot_count","save_bin_lot_count","Y","None","None","Row","n","save_bin_lot_count","csv","SQL->CASE WHEN a0.[save_bin_lot_count] = '' THEN NULL ELSE CAST (a0.[save_bin_lot_count] AS INTEGER) END","col9"
+"f(x)->save_bin_bundle_count","save_bin_bundle_count","Y","None","None","Row","n","save_bin_bundle_count","csv","SQL->CASE WHEN a0.[save_bin_bundle_count] = '' THEN NULL ELSE CAST (a0.[save_bin_bundle_count] AS INTEGER) END","col10"
+"f(x)->total_small_lot_count","total_small_lot_count","Y","None","None","Row","n","total_small_lot_count","csv","SQL->CASE WHEN a0.[total_small_lot_count] = '' THEN NULL ELSE CAST (a0.[total_small_lot_count] AS INTEGER) END","col11"
+"f(x)->total_small_bundle_count","total_small_bundle_count","Y","None","None","Row","n","total_small_bundle_count","csv","SQL->CASE WHEN a0.[total_small_bundle_count] = '' THEN NULL ELSE CAST (a0.[total_small_bundle_count] AS INTEGER) END","col12"
+"f(x)->met_pack","bundle_pack","Y","None","None","Row","n","met_pack","csv","SQL->CASE WHEN a0.[met_pack] = '' THEN NULL ELSE CAST (a0.[met_pack] AS INTEGER) END","col24"
+"f(x)->bundle_unpack_1","bundle_unpack","Y","None","None","Row","n","bundle_unpack_1","csv","SQL->CASE WHEN a0.[bundle_unpack] = '' THEN NULL ELSE CAST (a0.[bundle_unpack] AS INTEGER) END","col25"
+"JOINGRID:"
+"FILTERGRID:"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/END_EMBED
+/EMBED=VG2;All Lot Summery
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","No"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","Yes"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:",""
+"EXCEL:","alllot_summery.tab"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","N"
+"QUERYROWS:","12"
+"JOINROWS:","0"
+"FILTERROWS:","0"
+"COL_ID_COUNTER:","26"
+"CHART_COUNTER:","0"
+"PIVOTMODE:","0"
+"JOINHADOOP:","0"
+"SQLITESPECIALHDRS:","1"
+"LEGACYPIVOTHDRS:","0"
+"USEPYENGINE:","Y"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","1:5:SQL"
+"TABLEGRID:","1"
+"","ALL_LOT.csv a0",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","SQLite"
+"SINGLENODE:","TEXT (SQLite)"
+"SINGLESCHEMA:","N/A"
+"PROMPT-TEXT:","Fetching Text (SQLite) Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"PREPROCESS_CSV:","No"
+"NOHDRS:","No"
+"CARTESIAN:","No"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"f(x)->'Summary'","weekdate","Y","None","None","Row","C","***","","SQL->'Summary'","col20"
+"f(x)->'Summary'","team","Y","None","None","Row","C","***","","SQL->'Summary'","col21"
+"f(x)->premerge_lot_count","premerge_lot_count","Y","None","Sum","Row","n","premerge_lot_count","csv","SQL->CASE WHEN a0.[premerge_lot_count] = '' THEN NULL ELSE CAST (a0.[premerge_lot_count] AS INTEGER) END","col3"
+"f(x)->premerge_bundle_count","premerge_bundle_count","Y","None","Sum","Row","n","premerge_bundle_count","csv","SQL->CASE WHEN a0.[premerge_bundle_count] = '' THEN NULL ELSE CAST (a0.[premerge_bundle_count] AS INTEGER) END","col4"
+"f(x)->small_kitting_lot_count","small_kitting_lot_count","Y","None","Sum","Row","n","small_kitting_lot_count","csv","SQL->CASE WHEN a0.[small_kitting_lot_count] = '' THEN NULL ELSE CAST (a0.[small_kitting_lot_count] AS INTEGER) END","col7"
+"f(x)->small_kitting_bundle_count","small_kitting_bundle_count","Y","None","Sum","Row","n","small_kitting_bundle_count","csv","SQL->CASE WHEN a0.[small_kitting_bundle_count] = '' THEN NULL ELSE CAST (a0.[small_kitting_bundle_count] AS INTEGER) END","col8"
+"f(x)->save_bin_lot_count","save_bin_lot_count","Y","None","Sum","Row","n","save_bin_lot_count","csv","SQL->CASE WHEN a0.[save_bin_lot_count] = '' THEN NULL ELSE CAST (a0.[save_bin_lot_count] AS INTEGER) END","col9"
+"f(x)->save_bin_bundle_count","save_bin_bundle_count","Y","None","Sum","Row","n","save_bin_bundle_count","csv","SQL->CASE WHEN a0.[save_bin_bundle_count] = '' THEN NULL ELSE CAST (a0.[save_bin_bundle_count] AS INTEGER) END","col10"
+"f(x)->total_small_lot_count","total_small_lot_count","Y","None","Sum","Row","n","total_small_lot_count","csv","SQL->CASE WHEN a0.[total_small_lot_count] = '' THEN NULL ELSE CAST (a0.[total_small_lot_count] AS INTEGER) END","col11"
+"f(x)->total_small_bundle_count","total_small_bundle_count","Y","None","Sum","Row","n","total_small_bundle_count","csv","SQL->CASE WHEN a0.[total_small_bundle_count] = '' THEN NULL ELSE CAST (a0.[total_small_bundle_count] AS INTEGER) END","col12"
+"f(x)->bundle_unpack","bundle_unpack","Y","None","Sum","Row","n","bundle_unpack","csv","SQL->CASE WHEN a0.[bundle_unpack] = '' THEN NULL ELSE CAST (a0.[bundle_unpack] AS INTEGER) END","col24"
+"f(x)->bundle_pack","bundle_pack","Y","None","Sum","Row","n","bundle_pack","csv","SQL->CASE WHEN a0.[met_pack] = '' THEN NULL ELSE CAST (a0.[met_pack] AS INTEGER) END","col26"
+"JOINGRID:"
+"FILTERGRID:"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/END_EMBED
+/EMBED=VG2;Small lot Chart
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","No"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","No"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:",""
+"EXCEL:","smalllotchart.tab"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","N"
+"QUERYROWS:","4"
+"JOINROWS:","0"
+"FILTERROWS:","2"
+"COL_ID_COUNTER:","4"
+"CHART_COUNTER:","0"
+"PIVOTMODE:","0"
+"SQLITESPECIALHDRS:","1"
+"LEGACYPIVOTHDRS:","0"
+"USEPYENGINE:","Y"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","1:5:SQL"
+"TABLEGRID:","1"
+"","insfgi_f.tab a0",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","SQLite"
+"SINGLENODE:","TEXT (SQLite)"
+"SINGLESCHEMA:","N/A"
+"PROMPT-TEXT:","Fetching Text (SQLite) Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"PREPROCESS_CSV:","No"
+"NOHDRS:","No"
+"CARTESIAN:","No"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"a0.ww_shift","ww_shift","Y","None","None","Row","c","","csv","SQL->a0.[ww_shift]","col1"
+"a0.lot","LotCount","Y","None","Count","Row","c","","csv","SQL->a0.[lot]","col2"
+"f(x)->qty","qty","N","None","None","Row","f","qty","csv","SQL->CASE WHEN a0.[qty] = '' THEN NULL ELSE CAST (a0.[qty] AS REAL) END","col3"
+"f(x)->txn_date","txn_date","N","None","None","Row","d","txn_date","csv","SQL->CASE WHEN a0.[txn_date] = '' THEN NULL ELSE CAST (a0.[txn_date] AS TEXT) END","col4"
+"JOINGRID:"
+"FILTERGRID:"
+"AND","","f(x)->qty","<","300","","","f","csv","SQL->CASE WHEN a0.[qty] = '' THEN NULL ELSE CAST (a0.[qty] AS REAL) END",""
+"AND","","f(x)->txn_date",">=","Date('now','localtime','-30 days') || ' 00:00:00'","","","d","csv","SQL->CASE WHEN a0.[txn_date] = '' THEN NULL ELSE CAST (a0.[txn_date] AS TEXT) END",""
+
+
+/END_EMBED
+/EMBED=VG2;Small JOin Report
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","No"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","No"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:",""
+"EXCEL:","smalllotjoindata.tab"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","N"
+"QUERYROWS:","6"
+"JOINROWS:","0"
+"FILTERROWS:","1"
+"COL_ID_COUNTER:","8"
+"CHART_COUNTER:","0"
+"PIVOTMODE:","0"
+"SQLITESPECIALHDRS:","1"
+"LEGACYPIVOTHDRS:","0"
+"USEPYENGINE:","Y"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","1:5:SQL"
+"TABLEGRID:","1"
+"","insfgi_f.tab a0",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","SQLite"
+"SINGLENODE:","TEXT (SQLite)"
+"SINGLESCHEMA:","N/A"
+"PROMPT-TEXT:","Fetching Text (SQLite) Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"PREPROCESS_CSV:","No"
+"NOHDRS:","No"
+"CARTESIAN:","No"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"a0.ww_shift","ww_shift","Y","None","None","Row","c","","csv","SQL->a0.[ww_shift]","col1"
+"a0.prod","prod","Y","None","None","Row","c","","csv","SQL->a0.[prod]","col5"
+"a0.operation","operation","Y","None","None","Row","c","","csv","SQL->a0.[operation]","col8"
+"a0.owner","owner","Y","None","None","Row","c","","csv","SQL->a0.[owner]","col7"
+"a0.lot","SmallLotCount","Y","None","Count","Row","c","","csv","SQL->a0.[lot]","col2"
+"f(x)->qty","qty","N","None","None","Row","f","qty","csv","SQL->CASE WHEN a0.[qty] = '' THEN NULL ELSE CAST (a0.[qty] AS REAL) END","col3"
+"JOINGRID:"
+"FILTERGRID:"
+"AND","","f(x)->qty","<","300","","","f","csv","SQL->CASE WHEN a0.[qty] = '' THEN NULL ELSE CAST (a0.[qty] AS REAL) END",""
+
+
+/END_EMBED
+/EMBED=VG2;1_1
+"VERSION:","1.0"
+"OUTERJOIN:","No"
+"UNIONSORT:","No"
+"DISTINCT:","No"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","Yes"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:",""
+"EXCEL:","SFGI_Small_Lot_Report.csv"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","N"
+"QUERYROWS:","19"
+"JOINROWS:","1"
+"FILTERROWS:","0"
+"COL_ID_COUNTER:","21"
+"CHART_COUNTER:","0"
+"PIVOTMODE:","0"
+"SQLITESPECIALHDRS:","1"
+"LEGACYPIVOTHDRS:","0"
+"USEPYENGINE:","Y"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","1:5:SQL"
+"TABLEGRID:","2"
+"","Month_small_lot.csv a0",""
+"","calendar1.tab a1",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","SQLite"
+"SINGLENODE:","TEXT (SQLite)"
+"SINGLESCHEMA:","N/A"
+"PROMPT-TEXT:","Fetching Text (SQLite) Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"PREPROCESS_CSV:","No"
+"NOHDRS:","No"
+"CARTESIAN:","No"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"a0.weekdate","weekdate","Y","None","None","Row","c","","csv","SQL->a0.[weekdate]","col1"
+"a0.team","team","Y","None","None","Row","c","","csv","SQL->a0.[team]","col2"
+"a0.premerge_lot_count","premerge_lot_count","Y","None","None","Row","c","","csv","SQL->a0.[premerge_lot_count]","col3"
+"a0.premerge_bundle_count","premerge_bundle_count","Y","None","None","Row","c","","csv","SQL->a0.[premerge_bundle_count]","col4"
+"a0.premerge_goal","premerge_goal","Y","None","None","Row","c","","csv","SQL->a0.[premerge_goal]","col5"
+"a0.premerge_lot_delta","premerge_lot_delta","Y","None","None","Row","c","","csv","SQL->a0.[premerge_lot_delta]","col6"
+"a0.small_kitting_lot_count","small_kitting_lot_count","Y","None","None","Row","c","","csv","SQL->a0.[small_kitting_lot_count]","col7"
+"a0.small_kitting_bundle_count","small_kitting_bundle_count","Y","None","None","Row","c","","csv","SQL->a0.[small_kitting_bundle_count]","col8"
+"a0.save_bin_lot_count","save_bin_lot_count","Y","None","None","Row","c","","csv","SQL->a0.[save_bin_lot_count]","col9"
+"a0.save_bin_bundle_count","save_bin_bundle_count","Y","None","None","Row","c","","csv","SQL->a0.[save_bin_bundle_count]","col10"
+"a0.total_small_lot_count","total_small_lot_count","Y","None","None","Row","c","","csv","SQL->a0.[total_small_lot_count]","col11"
+"a0.total_small_bundle_count","total_small_bundle_count","Y","None","None","Row","c","","csv","SQL->a0.[total_small_bundle_count]","col12"
+"a0.goal","goal","Y","None","None","Row","c","","csv","SQL->a0.[goal]","col13"
+"f(x)->lot_delta","lot_delta","Y","None","None","Row","f","lot_delta","csv","SQL->CASE WHEN a0.[lot_delta] = '' THEN NULL ELSE CAST (a0.[lot_delta] AS REAL) END","col14"
+"a0.met_pack","met_pack","Y","None","None","Row","c","","csv","SQL->a0.[met_pack]","col15"
+"a0.all_unpack","all_unpack","Y","None","None","Row","c","","csv","SQL->a0.[all_unpack]","col16"
+"f(x)->current_time","current_time","Y","None","None","Row","d","current_time","csv","SQL->CASE WHEN a0.[current_time] = '' THEN NULL ELSE CAST (a0.[current_time] AS TEXT) END","col17"
+"a1.yy_ww","yy_ww","Y","None","None","Row","c","","csv","SQL->a1.[yy_ww]","col20"
+"f(x)->CASE WHEN    {lot_delta} < 0  THEN 1 ELSE 0 END","miss_meet","Y","None","None","Row","F","***","@if@1","SQL->CASE WHEN    {col14} < 0  THEN 1 ELSE 0 END","col21"
+"JOINGRID:"
+"","","Sqlite->a0.weekdate                                                                                                    : SQL->{col1}","=","Sqlite->a1.yy_ww                                                                                                    : SQL->{col20}",""
+"FILTERGRID:"
+
+
+
+
+
+
+
+
+
+
+/END_EMBED
+/EMBED=VG2;PrePostQuery_28
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","No"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","Yes"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:",""
+"EXCEL:","SFGI_small_lot_report2.csv"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","N"
+"QUERYROWS:","19"
+"JOINROWS:","0"
+"FILTERROWS:","1"
+"COL_ID_COUNTER:","19"
+"CHART_COUNTER:","0"
+"PIVOTMODE:","0"
+"SQLITESPECIALHDRS:","1"
+"LEGACYPIVOTHDRS:","0"
+"USEPYENGINE:","Y"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","1:5:SQL"
+"TABLEGRID:","1"
+"","SFGI_Small_Lot_Report.csv a0",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","SQLite"
+"SINGLENODE:","TEXT (SQLite)"
+"SINGLESCHEMA:","N/A"
+"PROMPT-TEXT:","Fetching Text (SQLite) Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"PREPROCESS_CSV:","No"
+"NOHDRS:","No"
+"CARTESIAN:","No"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"a0.weekdate","weekdate","Y","None","None","Row","c","","csv","SQL->a0.[weekdate]","col1"
+"a0.team","team","Y","None","None","Row","c","","csv","SQL->a0.[team]","col2"
+"a0.premerge_lot_count","premerge_lot_count","Y","None","None","Row","c","","csv","SQL->a0.[premerge_lot_count]","col3"
+"a0.premerge_bundle_count","premerge_bundle_count","Y","None","None","Row","c","","csv","SQL->a0.[premerge_bundle_count]","col4"
+"a0.premerge_goal","premerge_goal","Y","None","None","Row","c","","csv","SQL->a0.[premerge_goal]","col5"
+"a0.premerge_lot_delta","premerge_lot_delta","Y","None","None","Row","c","","csv","SQL->a0.[premerge_lot_delta]","col6"
+"a0.small_kitting_lot_count","small_kitting_lot_count","Y","None","None","Row","c","","csv","SQL->a0.[small_kitting_lot_count]","col7"
+"a0.small_kitting_bundle_count","small_kitting_bundle_count","Y","None","None","Row","c","","csv","SQL->a0.[small_kitting_bundle_count]","col8"
+"a0.save_bin_lot_count","save_bin_lot_count","Y","None","None","Row","c","","csv","SQL->a0.[save_bin_lot_count]","col9"
+"a0.save_bin_bundle_count","save_bin_bundle_count","Y","None","None","Row","c","","csv","SQL->a0.[save_bin_bundle_count]","col10"
+"a0.total_small_lot_count","total_small_lot_count","Y","None","None","Row","c","","csv","SQL->a0.[total_small_lot_count]","col11"
+"a0.total_small_bundle_count","total_small_bundle_count","Y","None","None","Row","c","","csv","SQL->a0.[total_small_bundle_count]","col12"
+"a0.goal","goal","Y","None","None","Row","c","","csv","SQL->a0.[goal]","col13"
+"a0.lot_delta","lot_delta","Y","None","None","Row","c","","csv","SQL->a0.[lot_delta]","col14"
+"a0.met_pack","met_pack","Y","None","None","Row","c","","csv","SQL->a0.[met_pack]","col15"
+"a0.all_unpack","all_unpack","Y","None","None","Row","c","","csv","SQL->a0.[all_unpack]","col16"
+"a0.current_time","current_time","Y","None","None","Row","c","","csv","SQL->a0.[current_time]","col17"
+"a0.yy_ww","yy_ww","Y","None","None","Row","c","","csv","SQL->a0.[yy_ww]","col18"
+"a0.miss_meet","miss_meet","Y","None","None","Row","c","","csv","SQL->a0.[miss_meet]","col19"
+"JOINGRID:"
+"FILTERGRID:"
+"AND","","a0.miss_meet","=","'1'","","","c","csv","SQL->a0.[miss_meet]",""
+
+
+
+
+
+
+
+
+
+
+/END_EMBED
+/EMBED=VG2;PrePostQuery_29
+"VERSION:","1.0"
+"OUTERJOIN:","Yes"
+"UNIONSORT:","No"
+"DISTINCT:","Yes"
+"QUOTECSV:","No"
+"CTMISSJOIN:","No"
+"EMPTYNULL:","No"
+"TERMINAL:","Yes"
+"OUTENABLED:","Yes"
+"INLINE_VIEW:",""
+"LASTPACKEDEXE:",""
+"EXCEL:","insfgi_f.tab"
+"ROW:","No"
+"EMBED:","Y"
+"INCNESTUTIL:","N"
+"QUERYROWS:","22"
+"JOINROWS:","0"
+"FILTERROWS:","0"
+"COL_ID_COUNTER:","22"
+"CHART_COUNTER:","0"
+"PIVOTMODE:","0"
+"SQLITESPECIALHDRS:","1"
+"LEGACYPIVOTHDRS:","0"
+"USEPYENGINE:","Y"
+"GLOBALS_FILE:",""
+"GLOBAL_VARS:","-1"
+"<---- New Query ---->","1:5:SQL"
+"TABLEGRID:","1"
+"","insfgi.tab a0",""
+"MARSNODE:","Default"
+"ARIESNODE:","Default"
+"OASYSNODE:","Default"
+"ARIESCLASSNODE:","ATD.ARIES"
+"OTHERNODE:","TEXT (SQLite)"
+"MARSSCHEMA:","Default"
+"DATABASETYPE:","SQLite"
+"SINGLENODE:","TEXT (SQLite)"
+"SINGLESCHEMA:","N/A"
+"PROMPT-TEXT:","Fetching Text (SQLite) Data"
+"DISTINCT:","No"
+"ROW:","No"
+"EXCEL:","No"
+"CT_MISS_VAL:","No"
+"PREPROCESS_CSV:","No"
+"NOHDRS:","No"
+"CARTESIAN:","No"
+"<---- New Query ---->","-99"
+"QUERYGRID:"
+"a0.prodgroup3","prodgroup3","Y","None","None","Row","c","","csv","SQL->a0.[prodgroup3]","col1"
+"a0.lot","lot","Y","None","None","Row","c","","csv","SQL->a0.[lot]","col2"
+"a0.operation1","operation1","Y","None","None","Row","c","","csv","SQL->a0.[operation1]","col3"
+"a0.in_date","in_date","Y","None","None","Row","c","","csv","SQL->a0.[in_date]","col4"
+"a0.owner","owner","Y","None","None","Row","c","","csv","SQL->a0.[owner]","col5"
+"a0.oldqty1","oldqty1","Y","None","None","Row","c","","csv","SQL->a0.[oldqty1]","col6"
+"a0.qty","qty","Y","None","None","Row","c","","csv","SQL->a0.[qty]","col7"
+"a0.prod","prod","Y","None","None","Row","c","","csv","SQL->a0.[prod]","col8"
+"a0.bundle size","bundle size","Y","None","None","Row","c","","csv","SQL->a0.[bundle size]","col9"
+"a0.buddle","buddle","Y","None","None","Row","c","","csv","SQL->a0.[buddle]","col10"
+"a0.site_month","site_month","Y","None","None","Row","c","","csv","SQL->a0.[site_month]","col11"
+"a0.month","month","Y","None","None","Row","c","","csv","SQL->a0.[month]","col12"
+"a0.ww_shift","ww_shift","Y","None","None","Row","c","","csv","SQL->a0.[ww_shift]","col13"
+"a0.calcudf1","calcudf1","Y","None","None","Row","c","","csv","SQL->a0.[calcudf1]","col14"
+"a0.start_date","start_date","Y","None","None","Row","c","","csv","SQL->a0.[start_date]","col15"
+"a0.end_date","end_date","Y","None","None","Row","c","","csv","SQL->a0.[end_date]","col16"
+"a0.filter","filter","Y","None","None","Row","c","","csv","SQL->a0.[filter]","col17"
+"a0.transaction","transaction","Y","None","None","Row","c","","csv","SQL->a0.[transaction]","col18"
+"a0.operation","operation","Y","None","None","Row","c","","csv","SQL->a0.[operation]","col19"
+"a0.next_operation","next_operation","Y","None","None","Row","c","","csv","SQL->a0.[next_operation]","col20"
+"a0.txn_date","txn_date","Y","None","None","Row","c","","csv","SQL->a0.[txn_date]","col21"
+"a0.name","name","Y","None","None","Row","c","","csv","SQL->a0.[name]","col22"
+"JOINGRID:"
+"FILTERGRID:"
+
+
+/END_EMBED
+/END_EMBED_ALL
